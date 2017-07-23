@@ -1,0 +1,19 @@
+{
+  "name": "replacce-in-files",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node --inspect ./src/index.js"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "glob": "^7.1.2",
+    "lodash": "^4.17.4"
+  }
+}
