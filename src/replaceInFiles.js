@@ -64,7 +64,7 @@ function decorateReplaceFunction(replaceFunction, matchLogs, path) {
   return (...args) => {
     // eslint-disable-next-line no-param-reassign
     matchLogs[path] = matchLogs[path] ? ++matchLogs[path] : 1;
-    return replaceFunction(...args);
+    return replaceFunction(...args, path);
   };
 }
 
