@@ -1,10 +1,10 @@
 const _ = require('lodash'); // eslint-disable-line no-unused-vars
-const replaceInFiles = require('./replaceInFiles.js').default;
+const replaceInFiles = require('../index.js');
 
 const regexpPathToFiles = '/home/wj42/work/training/replace-in-files/src/sandbox/index.js';
 const optionsForRegexpPathToFiles = {};
 
-const regexp = /const/g;
+const regexp = / *const (.*) = loopback\.getModel\((.*)\);.*\s *const (.*) = \1.create\((.*)\);.*/gm;
 
 function replaceFunction(
   match,
@@ -16,15 +16,17 @@ function replaceFunction(
   file,
   pathToFile
 ) {
-  // console.log('|42| ->    match', match);
-  // console.log('|42| ->    p1', p1);
-  // console.log('|42| ->    p2', p2);
-  // console.log('|42| ->    p3', p3);
-  // console.log('|42| ->    p4', p4);
-  // console.log('|42| ->    offset', offset);
-  // console.log('|42| ->    file', file);
-  // console.log('|42| ->    pathToFile', pathToFile);
-  return 'var';
+  console.log(__dirname);
+  console.log(__filename);
+  console.log('|42| ->    match', match);
+  console.log('|42| ->    p1', p1);
+  console.log('|42| ->    p2', p2);
+  console.log('|42| ->    p3', p3);
+  console.log('|42| ->    p4', p4);
+  console.log('|42| ->    offset', offset);
+  console.log('|42| ->    file', file);
+  console.log('|42| ->    pathToFile', pathToFile);
+  return `const ${p3} = createModel(${p2}, ${p4});`;
 }
 
 
