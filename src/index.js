@@ -1,7 +1,9 @@
 const _ = require('lodash'); // eslint-disable-line no-unused-vars
 const replaceInFiles = require('../index.js');
 
-const regexpPathToFiles = '/home/wj42/work/training/replace-in-files/src/sandbox/index.js';
+const regexpPathToFiles = [
+  '/home/wj42/work/training/replace-in-files/src/sandbox/index.js'
+];
 const optionsForRegexpPathToFiles = {};
 
 const regexp = / *const (.*) = loopback\.getModel\((.*)\);.*\s *const (.*) = \1.create\((.*)\);.*/gm;
@@ -16,8 +18,6 @@ function replaceFunction(
   file,
   pathToFile
 ) {
-  console.log(__dirname);
-  console.log(__filename);
   console.log('|42| ->    match', match);
   console.log('|42| ->    p1', p1);
   console.log('|42| ->    p2', p2);
