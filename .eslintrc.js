@@ -4,6 +4,7 @@ module.exports = {
       "no-use-before-define": ["error", { "functions": false }],
       "no-plusplus": "off",
       "comma-dangle": "off",
+      "max-len": ["error", 100, { "ignoreComments": true, "ignoreStrings": true, "ignoreTemplateLiterals": true }]
     },
     "globals": {
       "describe": true,
