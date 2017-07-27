@@ -1,20 +1,46 @@
 {
-  "name": "replacce-in-files",
+  "name": "replace-in-files",
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node --inspect ./src/index.js"
+    "start": "node --inspect ./src/index.js",
+    "watch": "./node_modules/jest/bin/jest.js --watch --no-cache",
+    "test": "./node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "jest": "^20.0.4"
   },
   "dependencies": {
     "chalk": "^2.0.1",
     "co": "^4.6.0",
     "globby": "^6.1.0",
     "lodash": "^4.17.4"
+  },
+  "jest": {
+    "collectCoverage": false,
+    "clearMocks": true,
+    "resetModules": true,
+    "resetMocks": true,
+    "verbose": true,
+    "automock": false,
+    "bail": false,
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "roots": [
+      "<rootDir>"
+    ],
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/setupJest.js"
   }
 }
