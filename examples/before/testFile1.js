@@ -1,4 +1,5 @@
-const loopback = require('loopback');  //eslint-disable-line
+/* eslint-disable */
+const loopback = require('loopback');
 
 const log = {};
 const Log = loopback.getModel('Log');
