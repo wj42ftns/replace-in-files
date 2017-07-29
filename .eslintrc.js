@@ -5,6 +5,7 @@ module.exports = {
       "no-plusplus": "off",
       "func-names": "off",
       "comma-dangle": "off",
+      "no-underscore-dangle": "off",
       "max-len": ["error", 100, { "ignoreComments": true, "ignoreStrings": true, "ignoreTemplateLiterals": true }]
     },
     "globals": {
