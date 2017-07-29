@@ -3,6 +3,7 @@ module.exports = {
     "rules": {
       "no-use-before-define": ["error", { "functions": false }],
       "no-plusplus": "off",
+      "func-names": "off",
       "comma-dangle": "off",
       "max-len": ["error", 100, { "ignoreComments": true, "ignoreStrings": true, "ignoreTemplateLiterals": true }]
     },

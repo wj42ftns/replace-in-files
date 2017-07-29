@@ -12,12 +12,12 @@
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
+    "fs-extra": "^4.0.0",
     "jest": "^20.0.4"
   },
   "dependencies": {
     "chalk": "^2.0.1",
     "co": "^4.6.0",
-    "fs-extra": "^4.0.0",
     "globby": "^6.1.0",
     "lodash": "^4.17.4"
   },
