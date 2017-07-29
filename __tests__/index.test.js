@@ -9,23 +9,21 @@ describe('replace-in-files', () => {
   describe('simpleStringReplace', () => {
     genTest('test work - simple string replace', function* () {
       const replaceInFiles = require('../index.js');
-      const regexpPathToFiles = resolve('examples/generatedAfter/simpleStringReplace.js');
-      yield fs.copy(testFile1, regexpPathToFiles);
+      const files = resolve('examples/generatedAfter/simpleStringReplace.js');
+      yield fs.copy(testFile1, files);
 
-      const optionsForRegexpPathToFiles = {};
-      const regexp = /const/g;
-      function replaceFunction() {
+      const from = /const/g;
+      function to() {
         return 'var';
       }
 
       yield replaceInFiles({
-        regexpPathToFiles,
-        optionsForRegexpPathToFiles,
-        regexp,
-        replaceFunction,
+        files,
+        from,
+        to,
       });
 
-      const result = yield fs.readFile(regexpPathToFiles, 'utf8');
+      const result = yield fs.readFile(files, 'utf8');
       const expectedResult = yield fs.readFile(resolve('examples/after/simpleStringReplace.js'), 'utf8');
       expect(result).toBe(expectedResult);
     });
