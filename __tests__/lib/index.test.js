@@ -19,24 +19,25 @@ describe('lib/index.js', () => {
 
       expect(result).toBe(callback);
     });
-    // genTest.only('module.exports workflow', function* () {
-    //   const wrapper = require('../../lib/index.js');
-    //
-    //   jest.mock('../../lib/ReplaceInFiles');
-    //   const ReplaceInFiles = require('../../lib/ReplaceInFiles');
-    //   const paths = 'paths';
-    //   const moc = { run: pFn(paths) };
-    //   ReplaceInFiles.mockImplementation(() => moc);
-    //
-    //   const options = 'options';
-    //   const result = yield wrapper.init(options);
-    //
-    //   expect(ReplaceInFiles).toHaveBeenCalledTimes(1);
-    //   expect(ReplaceInFiles).toHaveBeenCalledWith(options);
-    //   expect(moc.run).toHaveBeenCalledTimes(1);
-    //   expect(ReplaceInFiles).toHaveBeenCalledWith();
-    //
-    //   expect(result).toBe(paths);
-    // });
+    genTest('module.exports workflow', function* () {
+      const wrapper = require('../../lib/index.js');
+
+      jest.mock('../../lib/ReplaceInFiles');
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles');
+      const paths = 'paths';
+      const moc = { run: pFn(paths) };
+      ReplaceInFiles.mockImplementation(() => moc);
+
+      const options = 'options';
+      const result = yield wrapper.init(options);
+
+      expect(ReplaceInFiles).toHaveBeenCalledTimes(1);
+      expect(ReplaceInFiles).toHaveBeenCalledWith(options);
+
+      expect(moc.run).toHaveBeenCalledTimes(1);
+      expect(moc.run).toHaveBeenCalledWith();
+
+      expect(result).toBe(paths);
+    });
   });
 });

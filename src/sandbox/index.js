@@ -1,8 +1,7 @@
 const loopback = require('loopback');  //eslint-disable-line
 
 const log = {};
-const Log = loopback.getModel('Log');
-const updated1 = Log.create(log);
+const updated1 = createModel('Log', log);
 
 console.log('|42| ->    updated1', updated1);
 
