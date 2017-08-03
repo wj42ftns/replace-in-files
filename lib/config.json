@@ -1,0 +1,39 @@
+{
+  "Validator": {
+    "requiredOptions": [
+      "files",
+      "from"
+    ],
+    "checkTypes": [
+      {
+        "optionName": "files",
+        "checks": ["isArray", "isString"]
+      },
+      {
+        "optionName": "from",
+        "checks": ["isRegExp", "isString"]
+      },
+      {
+        "optionName": "optionsForFiles",
+        "checks": ["isObject"]
+      },
+      {
+        "optionName": "to",
+        "checks": ["isFunction", "isString"]
+      },
+      {
+        "optionName": "defaultEncoding",
+        "checks": ["isString", "isNull"]
+      }
+    ]
+  },
+  "Configurator": {
+    "defaultEncoding": "utf8",
+    "defaultOptionsForFiles": {
+      "ignore": [
+        "**/node_modules/**"
+      ],
+      "nodir": true
+    }
+  }
+}
