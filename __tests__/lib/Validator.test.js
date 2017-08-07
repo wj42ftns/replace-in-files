@@ -26,25 +26,60 @@ describe('lib/Validator.js', () => {
       expect(Validator.checkTypes).toHaveBeenCalledTimes(1);
       expect(Validator.checkTypes).toHaveBeenCalledWith(options);
     });
-    // genTest('module.exports workflow', function* () {
-    //   const wrapper = require('../../lib/Validator.js');
-    //
-    //   jest.mock('../../lib/ReplaceInFiles');
-    //   const ReplaceInFiles = require('../../lib/ReplaceInFiles');
-    //   const paths = 'paths';
-    //   const moc = { run: pFn(paths) };
-    //   ReplaceInFiles.mockImplementation(() => moc);
-    //
-    //   const options = 'options';
-    //   const result = yield wrapper.init(options);
-    //
-    // expect(ReplaceInFiles).toHaveBeenCalledTimes(1);
-    // expect(ReplaceInFiles).toHaveBeenCalledWith(options);
-    //
-    // expect(moc.run).toHaveBeenCalledTimes(1);
-    // expect(moc.run).toHaveBeenCalledWith();
-    //
-    //   expect(result).toBe(paths);
-    // });
+    test('checkAvailabilityRequiredFields', () => {
+      const Validator = require('../../lib/Validator.js');
+      const config = require('../../lib/config.json');
+      config.Validator.requiredOptions = ['foo', 'bar'];
+      Validator.checkAvailabilityRequiredField = fn();
+      const options = {
+        foo: '1',
+        bar: '2',
+        test: '3',
+      };
+
+      Validator.checkAvailabilityRequiredFields(options);
+
+      expect(Validator.checkAvailabilityRequiredField).toHaveBeenCalledTimes(2);
+      expect(Validator.checkAvailabilityRequiredField).toHaveBeenCalledWith(options.foo, 'foo');
+      expect(Validator.checkAvailabilityRequiredField).toHaveBeenCalledWith(options.bar, 'bar');
+    });
+    describe('checkAvailabilityRequiredField', () => {
+      test('pass 1', () => {
+        const Validator = require('../../lib/Validator.js');
+        const value = 'exist';
+        const key = 'FieldName';
+
+        Validator.checkAvailabilityRequiredField(value, key);
+      });
+      test('pass 2', () => {
+        const Validator = require('../../lib/Validator.js');
+        const value = true;
+        const key = 'FieldName';
+
+        Validator.checkAvailabilityRequiredField(value, key);
+      });
+      test('pass 3', () => {
+        const Validator = require('../../lib/Validator.js');
+        const value = null;
+        const key = 'FieldName';
+
+        Validator.checkAvailabilityRequiredField(value, key);
+      });
+      test('pass 4', () => {
+        const Validator = require('../../lib/Validator.js');
+        const value = '';
+        const key = 'FieldName';
+
+        Validator.checkAvailabilityRequiredField(value, key);
+      });
+      test('throw', () => {
+        const Validator = require('../../lib/Validator.js');
+        const value = undefined;
+        const key = 'FieldName';
+
+        expect(() => Validator.checkAvailabilityRequiredField(value, key))
+          .toThrow('option — "FieldName" is required!');
+      });
+    });
   });
 });
