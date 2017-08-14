@@ -5,12 +5,12 @@ describe('lib/Configurator.js', () => {
     const Configurator = require('../../lib/Configurator.js');
     const options = 'options';
 
-    const validator = new Configurator(options);
+    const configurator = new Configurator(options);
 
-    expect(validator.options).toBe(options);
-    expect(validator.findFilesOptions).toBeNull();
-    expect(validator.loggerOptions).toBeNull();
-    expect(validator.replaceOptions).toBeNull();
+    expect(configurator.options).toBe(options);
+    expect(configurator.findFilesOptions).toBeNull();
+    expect(configurator.loggerOptions).toBeNull();
+    expect(configurator.replaceOptions).toBeNull();
   });
   test('run', () => {
     const Configurator = require('../../lib/Configurator.js');
@@ -19,8 +19,8 @@ describe('lib/Configurator.js', () => {
     const options = 'options';
     const mocThis = { options };
 
-    const validator = new Configurator();
-    validator.run.call(mocThis);
+    const configurator = new Configurator();
+    configurator.run.call(mocThis);
 
     expect(Configurator.prepareFindFilesConfig).toHaveBeenCalledTimes(1);
     expect(Configurator.prepareFindFilesConfig).toHaveBeenCalledWith(options);
