@@ -32,7 +32,43 @@ describe('lib/Patcher.js', () => {
 
     expect(result).toBe(mocResult);
   });
-  // @TODO prepareReplaceFunction
+  describe('prepareReplaceFunction', () => {
+    test('to is not function', () => {
+      const Patcher = require('../../lib/Patcher.js');
+      const path = 'path';
+      const to = 'string';
+      const options = {
+        to,
+        path,
+      };
+      const logger = {};
+
+      const result = Patcher.prepareReplaceFunction(options, logger)();
+
+      expect(logger.changedFiles).toBe(path);
+      expect(result).toBe(to);
+    });
+    test('to is function', () => {
+      const Patcher = require('../../lib/Patcher.js');
+      const path = 'path';
+      const mocResult = 'mocResult';
+      const to = fn(mocResult);
+      const options = {
+        to,
+        path,
+      };
+      const logger = {};
+      const arg1 = 'arg1';
+      const arg2 = 'arg2';
+
+      const result = Patcher.prepareReplaceFunction(options, logger)(arg1, arg2);
+
+      expect(to).toHaveBeenCalledTimes(1);
+      expect(to).toHaveBeenCalledWith(arg1, arg2, path);
+      expect(logger.changedFiles).toBe(path);
+      expect(result).toBe(mocResult);
+    });
+  });
   test('replace', () => {
     const Patcher = require('../../lib/Patcher.js');
     const preparedReplaceFunction = () => 'preparedReplaceFunction';
