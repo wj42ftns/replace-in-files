@@ -4,23 +4,22 @@ describe('lib/Logger.js', () => {
   test('constructor', () => {
     const Logger = require('../../lib/Logger.js');
     const options = 'options';
-    const logger = 'logger';
 
-    const patcher = new Logger(options, logger);
+    const logger = new Logger(options);
 
-    expect(patcher.options).toBe(options);
-    expect(patcher._changedFiles).toEqual({});
+    expect(logger.options).toBe(options);
+    expect(logger._changedFiles).toEqual({});
   });
   test('set changedFiles', () => {
     const Logger = require('../../lib/Logger.js');
 
-    const patcher = new Logger();
-    patcher.changedFiles = 'path1';
-    patcher.changedFiles = 'path1';
-    patcher.changedFiles = 'path1';
-    patcher.changedFiles = 'path2';
-    patcher.changedFiles = 'path3';
-    const result = patcher._changedFiles;
+    const logger = new Logger();
+    logger.changedFiles = 'path1';
+    logger.changedFiles = 'path1';
+    logger.changedFiles = 'path1';
+    logger.changedFiles = 'path2';
+    logger.changedFiles = 'path3';
+    const result = logger._changedFiles;
 
     expect(result).toEqual({
       path1: 3,
@@ -31,28 +30,28 @@ describe('lib/Logger.js', () => {
   test('get changedFiles', () => {
     const Logger = require('../../lib/Logger.js');
 
-    const patcher = new Logger();
-    patcher._changedFiles = {
+    const logger = new Logger();
+    logger._changedFiles = {
       path1: 3,
       path2: 1,
       path3: 1,
     };
 
-    const result = patcher.changedFiles;
+    const result = logger.changedFiles;
 
-    expect(result).toEqual(patcher._changedFiles);
+    expect(result).toEqual(logger._changedFiles);
   });
   test('get changedPaths', () => {
     const Logger = require('../../lib/Logger.js');
 
-    const patcher = new Logger();
-    patcher._changedFiles = {
+    const logger = new Logger();
+    logger._changedFiles = {
       path1: 3,
       path2: 1,
       path3: 1,
     };
 
-    const result = patcher.changedPaths;
+    const result = logger.changedPaths;
 
     expect(result).toEqual([
       'path1',
