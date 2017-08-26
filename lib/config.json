@@ -24,6 +24,14 @@
       {
         "optionName": "defaultEncoding",
         "checks": ["isString", "isNull"]
+      },
+      {
+        "optionName": "onlyFindPathsWithoutReplace",
+        "checks": ["isBoolean"]
+      },
+      {
+        "optionName": "replaceFileOnlyIfMatchRegxInFile",
+        "checks": ["isRegExp", "isString"]
       }
     ]
   },
