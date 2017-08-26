@@ -17,7 +17,7 @@ describe('replace-in-files', () => {
         return 'var';
       }
 
-      yield replaceInFiles({
+      const paths = yield replaceInFiles({
         files,
         from,
         to,
@@ -26,6 +26,9 @@ describe('replace-in-files', () => {
       const result = yield fs.readFile(files, 'utf8');
       const expectedResult = yield fs.readFile(resolve('examples/after/testOptions.js'), 'utf8');
       expect(result).toBe(expectedResult);
+      expect(paths).toBeArr();
+      expect(paths.length).toBe(1);
+      expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
     });
     genTest('"to" - String', function* () {
       const replaceInFiles = require('../index.js');
@@ -35,7 +38,7 @@ describe('replace-in-files', () => {
       const from = /const/g;
       const to = 'var';
 
-      yield replaceInFiles({
+      const paths = yield replaceInFiles({
         files,
         from,
         to,
@@ -44,6 +47,9 @@ describe('replace-in-files', () => {
       const result = yield fs.readFile(files, 'utf8');
       const expectedResult = yield fs.readFile(resolve('examples/after/testOptions.js'), 'utf8');
       expect(result).toBe(expectedResult);
+      expect(paths).toBeArr();
+      expect(paths.length).toBe(1);
+      expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
     });
     genTest('"from" - String', function* () {
       const replaceInFiles = require('../index.js');
@@ -73,7 +79,7 @@ describe('replace-in-files', () => {
       const from = /const/g;
       const to = 'var';
 
-      yield replaceInFiles({
+      const paths = yield replaceInFiles({
         files,
         from,
         to,
@@ -82,6 +88,9 @@ describe('replace-in-files', () => {
       const result = yield fs.readFile(files[0], 'utf8');
       const expectedResult = yield fs.readFile(resolve('examples/after/testOptions.js'), 'utf8');
       expect(result).toBe(expectedResult);
+      expect(paths).toBeArr();
+      expect(paths.length).toBe(1);
+      expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
     });
   });
 });
