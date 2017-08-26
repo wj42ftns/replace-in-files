@@ -21,7 +21,9 @@ module.exports = {
       "jest": true,
       "jasmine": true,
       "pFn": true,
+      "epFn": true,
       "fn": true,
+      "efn": true,
       "genTest": true
     }
 };
