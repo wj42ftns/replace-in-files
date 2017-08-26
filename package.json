@@ -6,14 +6,16 @@
   "scripts": {
     "start": "node --inspect ./src/index.js",
     "watch": "./node_modules/jest/bin/jest.js --watch --no-cache",
-    "test": "./node_modules/jest/bin/jest.js"
+    "test": "./node_modules/jest/bin/jest.js",
+    "test-debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i --env jest-environment-node-debug"
   },
   "devDependencies": {
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
     "fs-extra": "^4.0.0",
-    "jest": "^20.0.4"
+    "jest": "^20.0.4",
+    "jest-environment-node-debug": "^2.0.0"
   },
   "dependencies": {
     "chalk": "^2.0.1",

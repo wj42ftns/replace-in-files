@@ -23,10 +23,10 @@ describe('lib/index.js', () => {
       const wrapper = require('../../lib/index.js');
 
       jest.mock('../../lib/ReplaceInFiles');
-      const ReplaceInFiles = require('../../lib/ReplaceInFiles');
       const paths = 'paths';
       const moc = { run: pFn(paths) };
-      ReplaceInFiles.mockImplementation(() => moc);
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles')
+        .mockImplementation(() => moc);
 
       const options = 'options';
       const result = yield wrapper.init(options);
