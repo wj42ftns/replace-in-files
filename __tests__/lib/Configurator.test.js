@@ -144,6 +144,7 @@ describe('lib/Configurator.js', () => {
         files: 'pathToFiles',
         from: 'from',
         to: 'to',
+        onlyFindPathsWithoutReplace: false,
         encoding: 'utf32'
       };
 
@@ -152,6 +153,7 @@ describe('lib/Configurator.js', () => {
       expect(result).toEqual({
         from: 'from',
         to: 'to',
+        onlyFindPathsWithoutReplace: false,
         encoding: 'utf32'
       });
     });
@@ -170,7 +172,26 @@ describe('lib/Configurator.js', () => {
 
       expect(result).toEqual({
         from: 'from',
+        onlyFindPathsWithoutReplace: false,
         to: 'to',
+        encoding: 'utf16'
+      });
+    });
+    test('3', () => {
+      const Configurator = require('../../lib/Configurator.js');
+      const config = require('../../lib/config.json');
+      config.Configurator.defaultEncoding = 'utf16';
+      const options = {
+        another: 'field',
+        files: 'pathToFiles',
+        from: 'from',
+      };
+
+      const result = Configurator.prepareReplaceConfig(options);
+
+      expect(result).toEqual({
+        from: 'from',
+        onlyFindPathsWithoutReplace: true,
         encoding: 'utf16'
       });
     });

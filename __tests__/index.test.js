@@ -51,6 +51,48 @@ describe('replace-in-files', () => {
       expect(paths.length).toBe(1);
       expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
     });
+    genTest('"to" - undefined', function* () {
+      const replaceInFiles = require('../index.js');
+      const files = resolve('examples/generatedAfter/testOptions.js');
+      yield fs.copy(testFile1, files);
+
+      const from = /const/g;
+
+      const paths = yield replaceInFiles({
+        files,
+        from,
+      });
+
+      const result = yield fs.readFile(resolve('examples/generatedAfter/testOptions.js'), 'utf8');
+      const expectedResult = yield fs.readFile(testFile1, 'utf8');
+      expect(result).toBe(expectedResult);
+      expect(paths).toBeArr();
+      expect(paths.length).toBe(1);
+      expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
+    });
+    genTest('"to" - exist and has option onlyFindPathsWithoutReplace', function* () {
+      const replaceInFiles = require('../index.js');
+      const files = resolve('examples/generatedAfter/testOptions.js');
+      yield fs.copy(testFile1, files);
+
+      const from = /const/g;
+      const to = 'var';
+      const onlyFindPathsWithoutReplace = true;
+
+      const paths = yield replaceInFiles({
+        files,
+        from,
+        to,
+        onlyFindPathsWithoutReplace,
+      });
+
+      const result = yield fs.readFile(resolve('examples/generatedAfter/testOptions.js'), 'utf8');
+      const expectedResult = yield fs.readFile(testFile1, 'utf8');
+      expect(result).toBe(expectedResult);
+      expect(paths).toBeArr();
+      expect(paths.length).toBe(1);
+      expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
+    });
     genTest('"from" - String', function* () {
       const replaceInFiles = require('../index.js');
       const files = resolve('examples/generatedAfter/fromIsString.js');
@@ -68,6 +110,29 @@ describe('replace-in-files', () => {
       const result = yield fs.readFile(files, 'utf8');
       const expectedResult = yield fs.readFile(resolve('examples/after/fromIsString.js'), 'utf8');
       expect(result).toBe(expectedResult);
+    });
+    genTest('"from" - String - with onlyFindPathsWithoutReplace option', function* () {
+      const replaceInFiles = require('../index.js');
+      const files = resolve('examples/generatedAfter/fromIsString.js');
+      yield fs.copy(testFile1, files);
+
+      const from = 'const';
+      const to = 'var';
+      const onlyFindPathsWithoutReplace = true;
+
+      const paths = yield replaceInFiles({
+        files,
+        from,
+        to,
+        onlyFindPathsWithoutReplace,
+      });
+
+      const result = yield fs.readFile(resolve('examples/generatedAfter/fromIsString.js'), 'utf8');
+      const expectedResult = yield fs.readFile(testFile1, 'utf8');
+      expect(result).toBe(expectedResult);
+      expect(paths).toBeArr();
+      expect(paths.length).toBe(1);
+      expect(paths[0].endsWith('examples/generatedAfter/fromIsString.js')).toBeTruthy();
     });
     genTest('"files" - Array', function* () {
       const replaceInFiles = require('../index.js');
