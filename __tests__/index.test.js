@@ -157,5 +157,55 @@ describe('replace-in-files', () => {
       expect(paths.length).toBe(1);
       expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
     });
+    genTest('"replaceFileOnlyIfMatchRegxInFile" - if regexp', function* () {
+      const replaceInFiles = require('../index.js');
+      const files = [
+        resolve('examples/generatedAfter/testOptions.js')
+      ];
+      yield fs.copy(testFile1, files[0]);
+
+      const from = /const/g;
+      const to = 'var';
+      const replaceFileOnlyIfMatchRegxInFile = /const log = {};/;
+
+      const paths = yield replaceInFiles({
+        files,
+        from,
+        to,
+        replaceFileOnlyIfMatchRegxInFile,
+      });
+
+      const result = yield fs.readFile(files[0], 'utf8');
+      const expectedResult = yield fs.readFile(resolve('examples/after/testOptions.js'), 'utf8');
+      expect(result).toBe(expectedResult);
+      expect(paths).toBeArr();
+      expect(paths.length).toBe(1);
+      expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
+    });
+    genTest('"replaceFileOnlyIfMatchRegxInFile" - if string', function* () {
+      const replaceInFiles = require('../index.js');
+      const files = [
+        resolve('examples/generatedAfter/testOptions.js')
+      ];
+      yield fs.copy(testFile1, files[0]);
+
+      const from = /const/g;
+      const to = 'var';
+      const replaceFileOnlyIfMatchRegxInFile = 'const log = {};';
+
+      const paths = yield replaceInFiles({
+        files,
+        from,
+        to,
+        replaceFileOnlyIfMatchRegxInFile,
+      });
+
+      const result = yield fs.readFile(files[0], 'utf8');
+      const expectedResult = yield fs.readFile(resolve('examples/after/testOptions.js'), 'utf8');
+      expect(result).toBe(expectedResult);
+      expect(paths).toBeArr();
+      expect(paths.length).toBe(1);
+      expect(paths[0].endsWith('examples/generatedAfter/testOptions.js')).toBeTruthy();
+    });
   });
 });
