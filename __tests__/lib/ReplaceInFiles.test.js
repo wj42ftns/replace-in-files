@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 describe('lib/ReplaceInFiles.js', () => {
-  test.only('constructor', () => {
+  test('constructor', () => {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
     const options = 'options';
 
@@ -10,7 +10,7 @@ describe('lib/ReplaceInFiles.js', () => {
     expect(replaceInFiles.options).toBe(options);
     expect(replaceInFiles.logger).toBeNull();
   });
-  genTest.only('run', function* () {
+  genTest('run', function* () {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
     const findFilesOptions = 'findFilesOptions';
     const loggerOptions = 'loggerOptions';
@@ -48,6 +48,65 @@ describe('lib/ReplaceInFiles.js', () => {
     expect(ReplaceInFiles.replaceInFiles).toHaveBeenCalledTimes(1);
     expect(ReplaceInFiles.replaceInFiles)
       .toHaveBeenCalledWith(replaceOptions, pathsToFiles, logger);
+
+    expect(result).toBe(paths);
+  });
+  test('validateOptions', () => {
+    const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+
+    jest.mock('../../lib/Validator');
+    const moc = { run: fn() };
+    const Validator = require('../../lib/Validator')
+      .mockImplementation(() => moc);
+
+    const options = 'options';
+    const mocThis = { options };
+    const replaceInFiles = new ReplaceInFiles();
+    replaceInFiles.validateOptions.call(mocThis);
+
+    expect(Validator).toHaveBeenCalledTimes(1);
+    expect(Validator).toHaveBeenCalledWith(options);
+
+    expect(moc.run).toHaveBeenCalledTimes(1);
+    expect(moc.run).toHaveBeenCalledWith();
+  });
+  test('setConfings', () => {
+    const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+
+    jest.mock('../../lib/Configurator');
+    const configs = 'configs';
+    const moc = { run: fn(configs) };
+    const Configurator = require('../../lib/Configurator')
+      .mockImplementation(() => moc);
+
+    const options = 'options';
+    const mocThis = { options };
+    const replaceInFiles = new ReplaceInFiles();
+    const result = replaceInFiles.setConfings.call(mocThis);
+
+    expect(Configurator).toHaveBeenCalledTimes(1);
+    expect(Configurator).toHaveBeenCalledWith(options);
+
+    expect(moc.run).toHaveBeenCalledTimes(1);
+    expect(moc.run).toHaveBeenCalledWith();
+
+    expect(result).toBe(configs);
+  });
+  genTest('run', function* () {
+    const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+    const paths = 'paths';
+    jest.mock('globby');
+    const globby = require('globby')
+      .mockImplementation(() => Promise.resolve(paths));
+
+    const files = 'files';
+    const optionsForFiles = 'optionsForFiles';
+
+    const result = yield ReplaceInFiles.getPathsToFiles({ files, optionsForFiles });
+
+    expect(globby).toHaveBeenCalledTimes(1);
+    expect(globby).toHaveBeenCalledWith(files, optionsForFiles);
+
 
     expect(result).toBe(paths);
   });
