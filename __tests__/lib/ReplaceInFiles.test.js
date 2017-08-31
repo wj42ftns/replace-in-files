@@ -30,7 +30,7 @@ describe('lib/ReplaceInFiles.js', () => {
     const Logger = require('../../lib/Logger');
     const logger = new Logger(loggerOptions);
 
-    ReplaceInFiles.replaceInFiles = pFn(paths);
+    ReplaceInFiles.handlerActions = pFn(paths);
     ReplaceInFiles.getPathsToFiles = pFn(pathsToFiles);
 
     const result = yield replaceInFiles.run();
@@ -45,8 +45,8 @@ describe('lib/ReplaceInFiles.js', () => {
     expect(ReplaceInFiles.getPathsToFiles).toHaveBeenCalledTimes(1);
     expect(ReplaceInFiles.getPathsToFiles).toHaveBeenCalledWith(findFilesOptions);
 
-    expect(ReplaceInFiles.replaceInFiles).toHaveBeenCalledTimes(1);
-    expect(ReplaceInFiles.replaceInFiles)
+    expect(ReplaceInFiles.handlerActions).toHaveBeenCalledTimes(1);
+    expect(ReplaceInFiles.handlerActions)
       .toHaveBeenCalledWith(replaceOptions, pathsToFiles, logger);
 
     expect(result).toBe(paths);
