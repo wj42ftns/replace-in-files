@@ -92,7 +92,7 @@ describe('lib/ReplaceInFiles.js', () => {
 
     expect(result).toBe(configs);
   });
-  genTest('run', function* () {
+  genTest('getPathsToFiles', function* () {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
     const paths = 'paths';
     jest.mock('globby');
@@ -109,5 +109,153 @@ describe('lib/ReplaceInFiles.js', () => {
 
 
     expect(result).toBe(paths);
+  });
+  // @TODO handlerActions
+  describe('handlerAction', () => {
+    genTest('1', function* () {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      ReplaceInFiles.findMatches = fn();
+      ReplaceInFiles.replaceMatches = pFn();
+      const Finder = require('../../lib/Finder');
+      Finder.isFindRegxInString = fn(true);
+      const helpers = require('../../lib/helpers');
+      const data = 'data';
+      helpers.fs.readFile = pFn(data);
+
+      const from = 'from';
+      const to = 'to';
+      const onlyFindPathsWithoutReplace = true;
+      const replaceFileOnlyIfMatchRegxInFile = 'replaceFileOnlyIfMatchRegxInFile';
+      const encoding = 'encoding';
+
+      const replaceOptions = {
+        from,
+        to,
+        onlyFindPathsWithoutReplace,
+        replaceFileOnlyIfMatchRegxInFile,
+        encoding
+      };
+
+      const path = 'path';
+      const logger = 'logger';
+
+      yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+
+      expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(1);
+      expect(ReplaceInFiles.findMatches).toHaveBeenCalledWith({ path, data, from }, logger);
+
+      expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(0);
+      expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(0);
+    });
+    genTest('2', function* () {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      ReplaceInFiles.findMatches = fn();
+      ReplaceInFiles.replaceMatches = pFn();
+      const Finder = require('../../lib/Finder');
+      Finder.isFindRegxInString = fn(true);
+      const helpers = require('../../lib/helpers');
+      const data = 'data';
+      helpers.fs.readFile = pFn(data);
+
+      const from = 'from';
+      const to = 'to';
+      const onlyFindPathsWithoutReplace = false;
+      const replaceFileOnlyIfMatchRegxInFile = 'replaceFileOnlyIfMatchRegxInFile';
+      const encoding = 'encoding';
+
+      const replaceOptions = {
+        from,
+        to,
+        onlyFindPathsWithoutReplace,
+        replaceFileOnlyIfMatchRegxInFile,
+        encoding
+      };
+
+      const path = 'path';
+      const logger = 'logger';
+
+      yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+
+      expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(0);
+
+      expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
+      expect(Finder.isFindRegxInString)
+        .toHaveBeenCalledWith(data, replaceFileOnlyIfMatchRegxInFile);
+
+      expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
+      expect(ReplaceInFiles.replaceMatches)
+        .toHaveBeenCalledWith({ path, data, from, to }, logger);
+    });
+    genTest('3', function* () {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      ReplaceInFiles.findMatches = fn();
+      ReplaceInFiles.replaceMatches = pFn();
+      const Finder = require('../../lib/Finder');
+      Finder.isFindRegxInString = fn(false);
+      const helpers = require('../../lib/helpers');
+      const data = 'data';
+      helpers.fs.readFile = pFn(data);
+
+      const from = 'from';
+      const to = 'to';
+      const onlyFindPathsWithoutReplace = false;
+      const replaceFileOnlyIfMatchRegxInFile = 'replaceFileOnlyIfMatchRegxInFile';
+      const encoding = 'encoding';
+
+      const replaceOptions = {
+        from,
+        to,
+        onlyFindPathsWithoutReplace,
+        replaceFileOnlyIfMatchRegxInFile,
+        encoding
+      };
+
+      const path = 'path';
+      const logger = 'logger';
+
+      yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+
+      expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(0);
+
+      expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
+      expect(Finder.isFindRegxInString)
+        .toHaveBeenCalledWith(data, replaceFileOnlyIfMatchRegxInFile);
+
+      expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(0);
+    });
+    genTest('4', function* () {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      ReplaceInFiles.findMatches = fn();
+      ReplaceInFiles.replaceMatches = pFn();
+      const Finder = require('../../lib/Finder');
+      Finder.isFindRegxInString = fn(true);
+      const helpers = require('../../lib/helpers');
+      const data = 'data';
+      helpers.fs.readFile = pFn(data);
+
+      const from = 'from';
+      const to = 'to';
+      const onlyFindPathsWithoutReplace = false;
+      const replaceFileOnlyIfMatchRegxInFile = undefined;
+      const encoding = 'encoding';
+
+      const replaceOptions = {
+        from,
+        to,
+        onlyFindPathsWithoutReplace,
+        replaceFileOnlyIfMatchRegxInFile,
+        encoding
+      };
+
+      const path = 'path';
+      const logger = 'logger';
+
+      yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+
+      expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(0);
+
+      expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(0);
+      expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
+    });
   });
 });
