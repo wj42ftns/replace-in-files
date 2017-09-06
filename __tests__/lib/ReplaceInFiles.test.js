@@ -110,7 +110,33 @@ describe('lib/ReplaceInFiles.js', () => {
 
     expect(result).toBe(paths);
   });
-  // @TODO handlerActions
+  genTest('handlerActions', function* () {
+    const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+    ReplaceInFiles.handlerAction = fn();
+
+    const replaceOptions = 'replaceOptions';
+    const pathsToFiles = [1, 2];
+    const changedPaths = 'changedPaths';
+    const logger = {
+      changedPaths
+    };
+
+    const result = yield ReplaceInFiles.handlerActions(replaceOptions, pathsToFiles, logger);
+
+    expect(ReplaceInFiles.handlerAction).toHaveBeenCalledTimes(2);
+    expect(ReplaceInFiles.handlerAction).toHaveBeenCalledWith(
+      replaceOptions,
+      pathsToFiles[0],
+      logger
+    );
+    expect(ReplaceInFiles.handlerAction).toHaveBeenCalledWith(
+      replaceOptions,
+      pathsToFiles[1],
+      logger
+    );
+
+    expect(result).toBe(changedPaths);
+  });
   describe('handlerAction', () => {
     genTest('1', function* () {
       const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
@@ -140,6 +166,9 @@ describe('lib/ReplaceInFiles.js', () => {
       const logger = 'logger';
 
       yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+
+      expect(helpers.fs.readFile).toHaveBeenCalledTimes(1);
+      expect(helpers.fs.readFile).toHaveBeenCalledWith(path, encoding);
 
       expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(1);
       expect(ReplaceInFiles.findMatches).toHaveBeenCalledWith({ path, data, from }, logger);
@@ -175,6 +204,9 @@ describe('lib/ReplaceInFiles.js', () => {
       const logger = 'logger';
 
       yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+
+      expect(helpers.fs.readFile).toHaveBeenCalledTimes(1);
+      expect(helpers.fs.readFile).toHaveBeenCalledWith(path, encoding);
 
       expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(0);
 
@@ -215,6 +247,9 @@ describe('lib/ReplaceInFiles.js', () => {
 
       yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
 
+      expect(helpers.fs.readFile).toHaveBeenCalledTimes(1);
+      expect(helpers.fs.readFile).toHaveBeenCalledWith(path, encoding);
+
       expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(0);
 
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
@@ -252,10 +287,66 @@ describe('lib/ReplaceInFiles.js', () => {
 
       yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
 
+      expect(helpers.fs.readFile).toHaveBeenCalledTimes(1);
+      expect(helpers.fs.readFile).toHaveBeenCalledWith(path, encoding);
+
       expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(0);
 
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(0);
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
     });
+  });
+  test('findMatches', () => {
+    const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+
+    const path = 'path';
+    const data = 'data';
+    const from = 'from';
+    const settings = { path, data, from };
+    const logger = 'logger';
+
+    jest.mock('../../lib/Finder');
+    const paths = 'paths';
+    const moc = { run: fn(paths) };
+    const Finder = require('../../lib/Finder')
+      .mockImplementation(() => moc);
+
+
+    ReplaceInFiles.findMatches(settings, logger);
+
+    expect(Finder).toHaveBeenCalledTimes(1);
+    expect(Finder).toHaveBeenCalledWith(settings, logger);
+
+    expect(moc.run).toHaveBeenCalledTimes(1);
+    expect(moc.run).toHaveBeenCalledWith();
+  });
+  genTest('replaceMatches', function* () {
+    const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+
+    const path = 'path';
+    const data = 'data';
+    const from = 'from';
+    const settings = { path, data, from };
+    const logger = 'logger';
+
+    jest.mock('../../lib/Patcher');
+    const updated = 'updated';
+    const moc = { run: fn(updated) };
+    const Patcher = require('../../lib/Patcher')
+      .mockImplementation(() => moc);
+    const helpers = require('../../lib/helpers');
+    helpers.fs.writeFile = pFn();
+
+
+    yield ReplaceInFiles.replaceMatches(settings, logger);
+
+    expect(Patcher).toHaveBeenCalledTimes(1);
+    expect(Patcher).toHaveBeenCalledWith(settings, logger);
+
+    expect(moc.run).toHaveBeenCalledTimes(1);
+    expect(moc.run).toHaveBeenCalledWith();
+
+    expect(helpers.fs.writeFile).toHaveBeenCalledTimes(1);
+    expect(helpers.fs.writeFile).toHaveBeenCalledWith(path, updated);
   });
 });
