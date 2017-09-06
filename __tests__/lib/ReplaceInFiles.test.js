@@ -49,7 +49,7 @@ describe('lib/ReplaceInFiles.js', () => {
     expect(ReplaceInFiles.handlerActions)
       .toHaveBeenCalledWith(replaceOptions, pathsToFiles, logger);
 
-    expect(result).toBe(paths);
+    expect(result).toEqual(logger.changedPaths);
   });
   test('validateOptions', () => {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
@@ -121,7 +121,7 @@ describe('lib/ReplaceInFiles.js', () => {
       changedPaths
     };
 
-    const result = yield ReplaceInFiles.handlerActions(replaceOptions, pathsToFiles, logger);
+    yield ReplaceInFiles.handlerActions(replaceOptions, pathsToFiles, logger);
 
     expect(ReplaceInFiles.handlerAction).toHaveBeenCalledTimes(2);
     expect(ReplaceInFiles.handlerAction).toHaveBeenCalledWith(
@@ -134,8 +134,6 @@ describe('lib/ReplaceInFiles.js', () => {
       pathsToFiles[1],
       logger
     );
-
-    expect(result).toBe(changedPaths);
   });
   describe('handlerAction', () => {
     genTest('1', function* () {
