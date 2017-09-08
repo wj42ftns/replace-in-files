@@ -16,6 +16,8 @@ describe('lib/Finder.js', () => {
       const Finder = require('../../lib/Finder.js');
 
       Finder.isFindRegxInString = fn(true);
+      const matches = ['const', 'const'];
+      Finder.findMatches = fn(matches);
       const from = 'from';
       const path = 'path';
       const data = 'data';
@@ -24,7 +26,13 @@ describe('lib/Finder.js', () => {
         path,
         data
       };
-      const logger = {};
+      const loggerOptions = {
+        returnCountOfMatchesByPaths: true,
+        returnPaths: true,
+      };
+      const Logger = require('../../lib/Logger');
+
+      const logger = new Logger(loggerOptions);
       const mocThis = { options, logger };
 
       const finder = new Finder();
@@ -33,7 +41,7 @@ describe('lib/Finder.js', () => {
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
       expect(Finder.isFindRegxInString).toHaveBeenCalledWith(data, from);
 
-      expect(logger.changedFiles).toBe(path);
+      expect(logger.countOfMatchesByPaths).toEqual({ [path]: matches.length });
     });
     test('if Finder.isFindRegxInString return false', () => {
       const Finder = require('../../lib/Finder.js');
@@ -56,7 +64,7 @@ describe('lib/Finder.js', () => {
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
       expect(Finder.isFindRegxInString).toHaveBeenCalledWith(data, from);
 
-      expect(logger.changedFiles).toBeUndefined();
+      expect(logger.countOfMatchesByPaths).toBeUndefined();
     });
   });
   describe('isFindRegxInString', () => {
@@ -85,27 +93,18 @@ describe('lib/Finder.js', () => {
       expect(result).toBeFalsy();
     });
   });
-  test('isFindRegxInString', () => {
-    const Finder = require('../../lib/Finder.js');
+  describe('findMatches', () => {
+    test('should return true if regexp', () => {
+      const Finder = require('../../lib/Finder.js');
+      const result = Finder.findMatches('test1 test2 test1 test3', /test1|test2/g);
 
-    Finder.isFindRegxInString = fn(true);
-    const from = 'from';
-    const path = 'path';
-    const data = 'data';
-    const options = {
-      from,
-      path,
-      data
-    };
-    const logger = {};
-    const mocThis = { options, logger };
+      expect(result).toEqual(['test1', 'test2', 'test1']);
+    });
+    test('should return true if regexp - string', () => {
+      const Finder = require('../../lib/Finder.js');
+      const result = Finder.findMatches('test1 test2 test1 test3', 'test1');
 
-    const finder = new Finder();
-    finder.run.call(mocThis);
-
-    expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
-    expect(Finder.isFindRegxInString).toHaveBeenCalledWith(data, from);
-
-    expect(logger.changedFiles).toBe(path);
+      expect(result).toEqual(['test1', 'test1']);
+    });
   });
 });

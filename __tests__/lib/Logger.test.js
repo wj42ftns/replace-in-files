@@ -8,18 +8,18 @@ describe('lib/Logger.js', () => {
     const logger = new Logger(options);
 
     expect(logger.options).toBe(options);
-    expect(logger._changedFiles).toEqual({});
+    expect(logger._countOfMatchesByPaths).toEqual({});
   });
-  test('set changedFiles', () => {
+  test('set countOfMatchesByPaths', () => {
     const Logger = require('../../lib/Logger.js');
 
     const logger = new Logger();
-    logger.changedFiles = 'path1';
-    logger.changedFiles = 'path1';
-    logger.changedFiles = 'path1';
-    logger.changedFiles = 'path2';
-    logger.changedFiles = 'path3';
-    const result = logger._changedFiles;
+    logger.countOfMatchesByPaths = 'path1';
+    logger.countOfMatchesByPaths = 'path1';
+    logger.countOfMatchesByPaths = 'path1';
+    logger.countOfMatchesByPaths = 'path2';
+    logger.countOfMatchesByPaths = 'path3';
+    const result = logger._countOfMatchesByPaths;
 
     expect(result).toEqual({
       path1: 3,
@@ -27,31 +27,31 @@ describe('lib/Logger.js', () => {
       path3: 1,
     });
   });
-  test('get changedFiles', () => {
+  test('get countOfMatchesByPaths', () => {
     const Logger = require('../../lib/Logger.js');
 
     const logger = new Logger();
-    logger._changedFiles = {
+    logger._countOfMatchesByPaths = {
       path1: 3,
       path2: 1,
       path3: 1,
     };
 
-    const result = logger.changedFiles;
+    const result = logger.countOfMatchesByPaths;
 
-    expect(result).toEqual(logger._changedFiles);
+    expect(result).toEqual(logger._countOfMatchesByPaths);
   });
-  test('get changedPaths', () => {
+  test('get paths', () => {
     const Logger = require('../../lib/Logger.js');
 
     const logger = new Logger();
-    logger._changedFiles = {
+    logger._countOfMatchesByPaths = {
       path1: 3,
       path2: 1,
       path3: 1,
     };
 
-    const result = logger.changedPaths;
+    const result = logger.paths;
 
     expect(result).toEqual([
       'path1',

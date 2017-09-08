@@ -37,6 +37,8 @@
   },
   "Configurator": {
     "defaultEncoding": "utf8",
+    "defaultReturnCountOfMatchesByPaths": true,
+    "defaultReturnPaths": true,
     "defaultOptionsForFiles": {
       "ignore": [
         "**/node_modules/**"

@@ -13,7 +13,10 @@ describe('lib/ReplaceInFiles.js', () => {
   genTest('run', function* () {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
     const findFilesOptions = 'findFilesOptions';
-    const loggerOptions = 'loggerOptions';
+    const loggerOptions = {
+      returnCountOfMatchesByPaths: true,
+      returnPaths: true,
+    };
     const replaceOptions = 'replaceOptions';
     const pathsToFiles = 'pathsToFiles';
     const paths = 'paths';
@@ -49,7 +52,10 @@ describe('lib/ReplaceInFiles.js', () => {
     expect(ReplaceInFiles.handlerActions)
       .toHaveBeenCalledWith(replaceOptions, pathsToFiles, logger);
 
-    expect(result).toEqual(logger.changedPaths);
+    expect(result).toEqual({
+      paths: logger.paths,
+      countOfMatchesByPaths: logger.countOfMatchesByPaths
+    });
   });
   test('validateOptions', () => {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
@@ -116,9 +122,9 @@ describe('lib/ReplaceInFiles.js', () => {
 
     const replaceOptions = 'replaceOptions';
     const pathsToFiles = [1, 2];
-    const changedPaths = 'changedPaths';
+    const paths = 'paths';
     const logger = {
-      changedPaths
+      paths
     };
 
     yield ReplaceInFiles.handlerActions(replaceOptions, pathsToFiles, logger);

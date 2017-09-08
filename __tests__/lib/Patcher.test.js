@@ -45,7 +45,7 @@ describe('lib/Patcher.js', () => {
 
       const result = Patcher.prepareReplaceFunction(options, logger)();
 
-      expect(logger.changedFiles).toBe(path);
+      expect(logger.countOfMatchesByPaths).toBe(path);
       expect(result).toBe(to);
     });
     test('to is function', () => {
@@ -65,7 +65,7 @@ describe('lib/Patcher.js', () => {
 
       expect(to).toHaveBeenCalledTimes(1);
       expect(to).toHaveBeenCalledWith(arg1, arg2, path);
-      expect(logger.changedFiles).toBe(path);
+      expect(logger.countOfMatchesByPaths).toBe(path);
       expect(result).toBe(mocResult);
     });
   });
