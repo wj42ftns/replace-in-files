@@ -155,14 +155,14 @@ describe('lib/ReplaceInFiles.js', () => {
       const from = 'from';
       const to = 'to';
       const onlyFindPathsWithoutReplace = true;
-      const replaceFileOnlyIfMatchRegxInFile = 'replaceFileOnlyIfMatchRegxInFile';
+      const replaceFileOnlyIfMatchRegxpInFile = 'replaceFileOnlyIfMatchRegxpInFile';
       const encoding = 'encoding';
 
       const replaceOptions = {
         from,
         to,
         onlyFindPathsWithoutReplace,
-        replaceFileOnlyIfMatchRegxInFile,
+        replaceFileOnlyIfMatchRegxpInFile,
         encoding
       };
 
@@ -193,14 +193,14 @@ describe('lib/ReplaceInFiles.js', () => {
       const from = 'from';
       const to = 'to';
       const onlyFindPathsWithoutReplace = false;
-      const replaceFileOnlyIfMatchRegxInFile = 'replaceFileOnlyIfMatchRegxInFile';
+      const replaceFileOnlyIfMatchRegxpInFile = 'replaceFileOnlyIfMatchRegxpInFile';
       const encoding = 'encoding';
 
       const replaceOptions = {
         from,
         to,
         onlyFindPathsWithoutReplace,
-        replaceFileOnlyIfMatchRegxInFile,
+        replaceFileOnlyIfMatchRegxpInFile,
         encoding
       };
 
@@ -216,7 +216,7 @@ describe('lib/ReplaceInFiles.js', () => {
 
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
       expect(Finder.isFindRegxInString)
-        .toHaveBeenCalledWith(data, replaceFileOnlyIfMatchRegxInFile);
+        .toHaveBeenCalledWith(data, replaceFileOnlyIfMatchRegxpInFile);
 
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
       expect(ReplaceInFiles.replaceMatches)
@@ -235,14 +235,14 @@ describe('lib/ReplaceInFiles.js', () => {
       const from = 'from';
       const to = 'to';
       const onlyFindPathsWithoutReplace = false;
-      const replaceFileOnlyIfMatchRegxInFile = 'replaceFileOnlyIfMatchRegxInFile';
+      const replaceFileOnlyIfMatchRegxpInFile = 'replaceFileOnlyIfMatchRegxpInFile';
       const encoding = 'encoding';
 
       const replaceOptions = {
         from,
         to,
         onlyFindPathsWithoutReplace,
-        replaceFileOnlyIfMatchRegxInFile,
+        replaceFileOnlyIfMatchRegxpInFile,
         encoding
       };
 
@@ -258,7 +258,7 @@ describe('lib/ReplaceInFiles.js', () => {
 
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
       expect(Finder.isFindRegxInString)
-        .toHaveBeenCalledWith(data, replaceFileOnlyIfMatchRegxInFile);
+        .toHaveBeenCalledWith(data, replaceFileOnlyIfMatchRegxpInFile);
 
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(0);
     });
@@ -275,14 +275,14 @@ describe('lib/ReplaceInFiles.js', () => {
       const from = 'from';
       const to = 'to';
       const onlyFindPathsWithoutReplace = false;
-      const replaceFileOnlyIfMatchRegxInFile = undefined;
+      const replaceFileOnlyIfMatchRegxpInFile = undefined;
       const encoding = 'encoding';
 
       const replaceOptions = {
         from,
         to,
         onlyFindPathsWithoutReplace,
-        replaceFileOnlyIfMatchRegxInFile,
+        replaceFileOnlyIfMatchRegxpInFile,
         encoding
       };
 

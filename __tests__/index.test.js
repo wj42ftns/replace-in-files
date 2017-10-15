@@ -169,7 +169,7 @@ describe('outer work replace-in-files', () => {
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
-    genTest('"replaceFileOnlyIfMatchRegxInFile" - if regexp', function* () {
+    genTest('"replaceFileOnlyIfMatchRegxpInFile" - if regexp', function* () {
       const replaceInFiles = require('../index.js');
       const files = [
         resolve('examples/generatedAfter/testOptions.js')
@@ -178,13 +178,13 @@ describe('outer work replace-in-files', () => {
 
       const from = /const/g;
       const to = 'var';
-      const replaceFileOnlyIfMatchRegxInFile = /const log = {};/;
+      const replaceFileOnlyIfMatchRegxpInFile = /const log = {};/;
 
       const result = yield replaceInFiles({
         files,
         from,
         to,
-        replaceFileOnlyIfMatchRegxInFile,
+        replaceFileOnlyIfMatchRegxpInFile,
       });
 
       const fsResult = yield fs.readFile(files[0], 'utf8');
@@ -196,7 +196,7 @@ describe('outer work replace-in-files', () => {
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
-    genTest('"replaceFileOnlyIfMatchRegxInFile" - if string', function* () {
+    genTest('"replaceFileOnlyIfMatchRegxpInFile" - if string', function* () {
       const replaceInFiles = require('../index.js');
       const files = [
         resolve('examples/generatedAfter/testOptions.js')
@@ -205,13 +205,13 @@ describe('outer work replace-in-files', () => {
 
       const from = /const/g;
       const to = 'var';
-      const replaceFileOnlyIfMatchRegxInFile = 'const log = {};';
+      const replaceFileOnlyIfMatchRegxpInFile = 'const log = {};';
 
       const result = yield replaceInFiles({
         files,
         from,
         to,
-        replaceFileOnlyIfMatchRegxInFile,
+        replaceFileOnlyIfMatchRegxpInFile,
       });
 
       const fsResult = yield fs.readFile(files[0], 'utf8');

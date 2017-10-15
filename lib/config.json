@@ -30,7 +30,7 @@
         "checks": ["isBoolean"]
       },
       {
-        "optionName": "replaceFileOnlyIfMatchRegxInFile",
+        "optionName": "replaceFileOnlyIfMatchRegxpInFile",
         "checks": ["isRegExp", "isString"]
       }
     ]
