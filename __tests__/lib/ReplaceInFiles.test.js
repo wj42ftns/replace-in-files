@@ -1,3 +1,7 @@
+const MockDate = require('mockdate');
+
+MockDate.set('Thu May 08 2042 15:16:23 GMT+0300');
+const mocDate = new Date();
 /* eslint-disable global-require */
 
 describe('lib/ReplaceInFiles.js', () => {
@@ -157,13 +161,15 @@ describe('lib/ReplaceInFiles.js', () => {
       const onlyFindPathsWithoutReplace = true;
       const replaceFileOnlyIfMatchRegxpInFile = 'replaceFileOnlyIfMatchRegxpInFile';
       const encoding = 'encoding';
+      const saveOldFile = 'saveOldFile';
 
       const replaceOptions = {
         from,
         to,
         onlyFindPathsWithoutReplace,
         replaceFileOnlyIfMatchRegxpInFile,
-        encoding
+        encoding,
+        saveOldFile,
       };
 
       const path = 'path';
@@ -195,13 +201,15 @@ describe('lib/ReplaceInFiles.js', () => {
       const onlyFindPathsWithoutReplace = false;
       const replaceFileOnlyIfMatchRegxpInFile = 'replaceFileOnlyIfMatchRegxpInFile';
       const encoding = 'encoding';
+      const saveOldFile = 'saveOldFile';
 
       const replaceOptions = {
         from,
         to,
         onlyFindPathsWithoutReplace,
         replaceFileOnlyIfMatchRegxpInFile,
-        encoding
+        encoding,
+        saveOldFile
       };
 
       const path = 'path';
@@ -220,7 +228,7 @@ describe('lib/ReplaceInFiles.js', () => {
 
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
       expect(ReplaceInFiles.replaceMatches)
-        .toHaveBeenCalledWith({ path, data, from, to }, logger);
+        .toHaveBeenCalledWith({ path, data, from, to, saveOldFile }, logger);
     });
     genTest('3', function* () {
       const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
@@ -237,13 +245,15 @@ describe('lib/ReplaceInFiles.js', () => {
       const onlyFindPathsWithoutReplace = false;
       const replaceFileOnlyIfMatchRegxpInFile = 'replaceFileOnlyIfMatchRegxpInFile';
       const encoding = 'encoding';
+      const saveOldFile = 'saveOldFile';
 
       const replaceOptions = {
         from,
         to,
         onlyFindPathsWithoutReplace,
         replaceFileOnlyIfMatchRegxpInFile,
-        encoding
+        encoding,
+        saveOldFile,
       };
 
       const path = 'path';
@@ -275,15 +285,17 @@ describe('lib/ReplaceInFiles.js', () => {
       const from = 'from';
       const to = 'to';
       const onlyFindPathsWithoutReplace = false;
-      const replaceFileOnlyIfMatchRegxpInFile = undefined;
+      const replaceFileOnlyIfMatchRegxpInFile = null;
       const encoding = 'encoding';
+      const saveOldFile = 'saveOldFile';
 
       const replaceOptions = {
         from,
         to,
         onlyFindPathsWithoutReplace,
         replaceFileOnlyIfMatchRegxpInFile,
-        encoding
+        encoding,
+        saveOldFile,
       };
 
       const path = 'path';
@@ -298,6 +310,8 @@ describe('lib/ReplaceInFiles.js', () => {
 
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(0);
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
+      expect(ReplaceInFiles.replaceMatches)
+        .toHaveBeenCalledWith({ path, data, from, to, saveOldFile }, logger);
     });
   });
   test('findMatches', () => {
@@ -324,33 +338,156 @@ describe('lib/ReplaceInFiles.js', () => {
     expect(moc.run).toHaveBeenCalledTimes(1);
     expect(moc.run).toHaveBeenCalledWith();
   });
-  genTest('replaceMatches', function* () {
+  describe('replaceMatches', () => {
+    genTest('1', function* () {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      ReplaceInFiles.saveOldFile = pFn();
+
+      const path = 'path';
+      const data = 'data';
+      const from = 'from';
+      const to = 'to';
+      const saveOldFile = true;
+      const settings = { path, data, from, to, saveOldFile };
+      const logger = 'logger';
+
+      jest.mock('../../lib/Patcher');
+      const updated = 'updated';
+      const moc = { run: fn(updated) };
+      const Patcher = require('../../lib/Patcher')
+        .mockImplementation(() => moc);
+      const helpers = require('../../lib/helpers');
+      helpers.fs.writeFile = pFn();
+
+
+      yield ReplaceInFiles.replaceMatches(settings, logger);
+
+      expect(Patcher).toHaveBeenCalledTimes(1);
+      expect(Patcher).toHaveBeenCalledWith({ path, data, from, to }, logger);
+
+      expect(moc.run).toHaveBeenCalledTimes(1);
+      expect(moc.run).toHaveBeenCalledWith();
+
+      expect(ReplaceInFiles.saveOldFile).toHaveBeenCalledTimes(1);
+      expect(ReplaceInFiles.saveOldFile).toHaveBeenCalledWith({ path, data });
+
+      expect(helpers.fs.writeFile).toHaveBeenCalledTimes(1);
+      expect(helpers.fs.writeFile).toHaveBeenCalledWith(path, updated);
+    });
+    genTest('2', function* () {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      ReplaceInFiles.saveOldFile = pFn();
+
+      const path = 'path';
+      const data = 'data';
+      const from = 'from';
+      const to = 'to';
+      const saveOldFile = false;
+      const settings = { path, data, from, to, saveOldFile };
+      const logger = 'logger';
+
+      jest.mock('../../lib/Patcher');
+      const updated = 'updated';
+      const moc = { run: fn(updated) };
+      const Patcher = require('../../lib/Patcher')
+        .mockImplementation(() => moc);
+      const helpers = require('../../lib/helpers');
+      helpers.fs.writeFile = pFn();
+
+
+      yield ReplaceInFiles.replaceMatches(settings, logger);
+
+      expect(Patcher).toHaveBeenCalledTimes(1);
+      expect(Patcher).toHaveBeenCalledWith({ path, data, from, to }, logger);
+
+      expect(moc.run).toHaveBeenCalledTimes(1);
+      expect(moc.run).toHaveBeenCalledWith();
+
+      expect(ReplaceInFiles.saveOldFile).toHaveBeenCalledTimes(0);
+
+      expect(helpers.fs.writeFile).toHaveBeenCalledTimes(1);
+      expect(helpers.fs.writeFile).toHaveBeenCalledWith(path, updated);
+    });
+  });
+  genTest('saveOldFile', function* () {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
-
-    const path = 'path';
+    const path = '/home/lib/Patcher.js';
     const data = 'data';
-    const from = 'from';
-    const settings = { path, data, from };
-    const logger = 'logger';
 
-    jest.mock('../../lib/Patcher');
-    const updated = 'updated';
-    const moc = { run: fn(updated) };
-    const Patcher = require('../../lib/Patcher')
-      .mockImplementation(() => moc);
     const helpers = require('../../lib/helpers');
     helpers.fs.writeFile = pFn();
+    const birthtime = 42;
+    const ctime = 79;
+    helpers.fs.stat = pFn({ birthtime, ctime });
+    const oldFilePath = 'oldFilePath';
+    ReplaceInFiles.getOldFilePath = fn(oldFilePath);
 
+    yield ReplaceInFiles.saveOldFile({ path, data });
 
-    yield ReplaceInFiles.replaceMatches(settings, logger);
+    expect(helpers.fs.stat).toHaveBeenCalledTimes(1);
+    expect(helpers.fs.stat).toHaveBeenCalledWith(path);
 
-    expect(Patcher).toHaveBeenCalledTimes(1);
-    expect(Patcher).toHaveBeenCalledWith(settings, logger);
-
-    expect(moc.run).toHaveBeenCalledTimes(1);
-    expect(moc.run).toHaveBeenCalledWith();
+    expect(ReplaceInFiles.getOldFilePath).toHaveBeenCalledTimes(1);
+    expect(ReplaceInFiles.getOldFilePath).toHaveBeenCalledWith({ path, birthtime, ctime });
 
     expect(helpers.fs.writeFile).toHaveBeenCalledTimes(1);
-    expect(helpers.fs.writeFile).toHaveBeenCalledWith(path, updated);
+    expect(helpers.fs.writeFile).toHaveBeenCalledWith(oldFilePath, data);
+  });
+  describe('getOldFilePath', () => {
+    test('1', () => {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      const path = '/home/lib/Patcher.js';
+      const birthtime = 42;
+      const ctime = 79;
+
+      const helpers = require('../../lib/helpers');
+
+      const postfix = 'postfix';
+      helpers.getFormatedDate = fn(postfix);
+
+      const result = ReplaceInFiles.getOldFilePath({ path, birthtime, ctime });
+
+      expect(helpers.getFormatedDate).toHaveBeenCalledTimes(1);
+      expect(helpers.getFormatedDate).toHaveBeenCalledWith(birthtime);
+
+      expect(result).toBe('/home/lib/Patcher-postfix.js');
+    });
+    test('2', () => {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      const path = '/home/lib/fileWithoutExtension';
+      const birthtime = undefined;
+      const ctime = 79;
+
+      const helpers = require('../../lib/helpers');
+
+
+      const postfix = 'postfix';
+      helpers.getFormatedDate = fn(postfix);
+
+      const result = ReplaceInFiles.getOldFilePath({ path, birthtime, ctime });
+
+      expect(helpers.getFormatedDate).toHaveBeenCalledTimes(1);
+      expect(helpers.getFormatedDate).toHaveBeenCalledWith(ctime);
+
+      expect(result).toBe('/home/lib/fileWithoutExtension-postfix');
+    });
+    test('3', () => {
+      const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
+      const path = '/home/my-lib_extra/readme42.md';
+      const birthtime = undefined;
+      const ctime = undefined;
+
+      const helpers = require('../../lib/helpers');
+
+      const postfix = 'postfix';
+      helpers.getFormatedDate = fn(postfix);
+
+      const result = ReplaceInFiles.getOldFilePath({ path, birthtime, ctime });
+
+      expect(helpers.getFormatedDate).toHaveBeenCalledTimes(1);
+      expect(helpers.getFormatedDate).toHaveBeenCalledWith(mocDate);
+
+      expect(result).toBe('/home/my-lib_extra/readme42-postfix.md');
+    });
   });
 });

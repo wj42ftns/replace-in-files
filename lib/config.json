@@ -32,6 +32,10 @@
       {
         "optionName": "replaceFileOnlyIfMatchRegxpInFile",
         "checks": ["isRegExp", "isString"]
+      },
+      {
+        "optionName": "saveOldFile",
+        "checks": ["isBoolean"]
       }
     ]
   },
@@ -39,11 +43,12 @@
     "defaultEncoding": "utf8",
     "defaultReturnCountOfMatchesByPaths": true,
     "defaultReturnPaths": true,
+    "defaultSaveOldFile": false,
+    "defaultOnlyFindPathsWithoutReplace": false,
     "defaultOptionsForFiles": {
       "ignore": [
         "**/node_modules/**"
-      ],
-      "nodir": true
+      ]
     }
   }
 }

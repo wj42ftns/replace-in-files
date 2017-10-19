@@ -59,7 +59,8 @@ describe('lib/Configurator.js', () => {
           ],
           foo: 'bar',
           key1: 'value1',
-          key2: 'value2'
+          key2: 'value2',
+          nodir: true
         }
       });
     });
@@ -82,7 +83,8 @@ describe('lib/Configurator.js', () => {
             'new/path/instead/default/paths'
           ],
           key1: 'value1',
-          foo: 'newBar'
+          foo: 'newBar',
+          nodir: false
         }
       };
 
@@ -96,7 +98,8 @@ describe('lib/Configurator.js', () => {
           ],
           key1: 'value1',
           foo: 'newBar',
-          qwerty: 123
+          qwerty: 123,
+          nodir: true
         }
       });
     });
@@ -129,7 +132,8 @@ describe('lib/Configurator.js', () => {
           ignore: [],
           key1: 'value1',
           foo: 'newBar',
-          qwerty: 123
+          qwerty: 123,
+          nodir: true
         }
       });
     });
@@ -144,8 +148,9 @@ describe('lib/Configurator.js', () => {
         files: 'pathToFiles',
         from: 'from',
         to: 'to',
-        onlyFindPathsWithoutReplace: false,
-        encoding: 'utf32'
+        encoding: 'utf32',
+        replaceFileOnlyIfMatchRegxpInFile: /foo/,
+        saveOldFile: true,
       };
 
       const result = Configurator.prepareReplaceConfig(options);
@@ -154,7 +159,9 @@ describe('lib/Configurator.js', () => {
         from: 'from',
         to: 'to',
         onlyFindPathsWithoutReplace: false,
-        encoding: 'utf32'
+        encoding: 'utf32',
+        replaceFileOnlyIfMatchRegxpInFile: /foo/,
+        saveOldFile: true
       });
     });
     test('2', () => {
@@ -166,6 +173,8 @@ describe('lib/Configurator.js', () => {
         files: 'pathToFiles',
         from: 'from',
         to: 'to',
+        replaceFileOnlyIfMatchRegxpInFile: null,
+        saveOldFile: false
       };
 
       const result = Configurator.prepareReplaceConfig(options);
@@ -174,7 +183,9 @@ describe('lib/Configurator.js', () => {
         from: 'from',
         onlyFindPathsWithoutReplace: false,
         to: 'to',
-        encoding: 'utf16'
+        encoding: 'utf16',
+        replaceFileOnlyIfMatchRegxpInFile: null,
+        saveOldFile: false
       });
     });
     test('3', () => {
@@ -192,7 +203,9 @@ describe('lib/Configurator.js', () => {
       expect(result).toEqual({
         from: 'from',
         onlyFindPathsWithoutReplace: true,
-        encoding: 'utf16'
+        encoding: 'utf16',
+        replaceFileOnlyIfMatchRegxpInFile: null,
+        saveOldFile: false
       });
     });
   });
