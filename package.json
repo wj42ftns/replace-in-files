@@ -19,8 +19,8 @@
     "mockdate": "^2.0.2"
   },
   "dependencies": {
-    "chalk": "^2.0.1",
     "co": "^4.6.0",
+    "es6-promisify": "^5.0.0",
     "globby": "^6.1.0",
     "lodash": "^4.17.4"
   },

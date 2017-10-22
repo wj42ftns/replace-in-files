@@ -172,9 +172,14 @@ describe('lib/Validator.js', () => {
         optionName: 'optionName',
         checks: ['isArray', 'isString', 'isFunction', 'isNull', 'isRegExp']
       };
+      const helpers = require('../../lib/helpers');
+      helpers.handleError = fn();
+      const errorMessage = 'option — "optionName" should be: Array or String or Function or Null or RegExp';
 
-      expect(() => Validator.checkType(options))
-        .toThrow('option — "optionName" should be: Array or String or Function or Null or RegExp');
+      Validator.checkType(options);
+
+      expect(helpers.handleError).toHaveBeenCalledTimes(1);
+      expect(helpers.handleError).toHaveBeenCalledWith(errorMessage);
     });
     test('throw 2', () => {
       const Validator = require('../../lib/Validator.js');
@@ -183,9 +188,14 @@ describe('lib/Validator.js', () => {
         optionName: 'optionName',
         checks: ['isArray', 'isString', 'isFunction', 'isNull', 'isRegExp']
       };
+      const helpers = require('../../lib/helpers');
+      helpers.handleError = fn();
+      const errorMessage = 'option — "optionName" should be: Array or String or Function or Null or RegExp';
 
-      expect(() => Validator.checkType(options))
-        .toThrow('option — "optionName" should be: Array or String or Function or Null or RegExp');
+      Validator.checkType(options);
+
+      expect(helpers.handleError).toHaveBeenCalledTimes(1);
+      expect(helpers.handleError).toHaveBeenCalledWith(errorMessage);
     });
   });
 });
