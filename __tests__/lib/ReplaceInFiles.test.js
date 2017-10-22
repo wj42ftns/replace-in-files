@@ -440,15 +440,18 @@ describe('lib/ReplaceInFiles.js', () => {
       const birthtime = 42;
       const ctime = 79;
 
-      const helpers = require('../../lib/helpers');
-
       const postfix = 'postfix';
-      helpers.getFormatedDate = fn(postfix);
+      jest.mock('../../lib/DateFormatter');
+      const moc = { run: fn(postfix) };
+      const DateFormatter = require('../../lib/DateFormatter').mockImplementation(() => moc);
 
       const result = ReplaceInFiles.getOldFilePath({ path, birthtime, ctime });
 
-      expect(helpers.getFormatedDate).toHaveBeenCalledTimes(1);
-      expect(helpers.getFormatedDate).toHaveBeenCalledWith(birthtime);
+      expect(DateFormatter).toHaveBeenCalledTimes(1);
+      expect(DateFormatter).toHaveBeenCalledWith({ date: birthtime });
+
+      expect(moc.run).toHaveBeenCalledTimes(1);
+      expect(moc.run).toHaveBeenCalledWith();
 
       expect(result).toBe('/home/lib/Patcher-postfix.js');
     });
@@ -458,16 +461,18 @@ describe('lib/ReplaceInFiles.js', () => {
       const birthtime = undefined;
       const ctime = 79;
 
-      const helpers = require('../../lib/helpers');
-
-
       const postfix = 'postfix';
-      helpers.getFormatedDate = fn(postfix);
+      jest.mock('../../lib/DateFormatter');
+      const moc = { run: fn(postfix) };
+      const DateFormatter = require('../../lib/DateFormatter').mockImplementation(() => moc);
 
       const result = ReplaceInFiles.getOldFilePath({ path, birthtime, ctime });
 
-      expect(helpers.getFormatedDate).toHaveBeenCalledTimes(1);
-      expect(helpers.getFormatedDate).toHaveBeenCalledWith(ctime);
+      expect(DateFormatter).toHaveBeenCalledTimes(1);
+      expect(DateFormatter).toHaveBeenCalledWith({ date: ctime });
+
+      expect(moc.run).toHaveBeenCalledTimes(1);
+      expect(moc.run).toHaveBeenCalledWith();
 
       expect(result).toBe('/home/lib/fileWithoutExtension-postfix');
     });
@@ -477,15 +482,18 @@ describe('lib/ReplaceInFiles.js', () => {
       const birthtime = undefined;
       const ctime = undefined;
 
-      const helpers = require('../../lib/helpers');
-
       const postfix = 'postfix';
-      helpers.getFormatedDate = fn(postfix);
+      jest.mock('../../lib/DateFormatter');
+      const moc = { run: fn(postfix) };
+      const DateFormatter = require('../../lib/DateFormatter').mockImplementation(() => moc);
 
       const result = ReplaceInFiles.getOldFilePath({ path, birthtime, ctime });
 
-      expect(helpers.getFormatedDate).toHaveBeenCalledTimes(1);
-      expect(helpers.getFormatedDate).toHaveBeenCalledWith(mocDate);
+      expect(DateFormatter).toHaveBeenCalledTimes(1);
+      expect(DateFormatter).toHaveBeenCalledWith({ date: mocDate });
+
+      expect(moc.run).toHaveBeenCalledTimes(1);
+      expect(moc.run).toHaveBeenCalledWith();
 
       expect(result).toBe('/home/my-lib_extra/readme42-postfix.md');
     });
