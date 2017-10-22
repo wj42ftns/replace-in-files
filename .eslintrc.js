@@ -8,6 +8,14 @@ module.exports = {
       "no-underscore-dangle": "off",
       "max-len": ["error", 100, { "ignoreComments": true, "ignoreStrings": true, "ignoreTemplateLiterals": true }]
     },
+    "overrides": [
+      {
+        "files": [ "*.test.js"],
+        "rules": {
+          "global-require": "off",
+        }
+      }
+    ],
     "globals": {
       "describe": true,
       "before": true,

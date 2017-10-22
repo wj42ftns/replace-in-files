@@ -2,7 +2,6 @@ const MockDate = require('mockdate');
 
 MockDate.set('Thu May 08 2042 15:16:23 GMT+0300');
 const mocDate = new Date();
-/* eslint-disable global-require */
 
 describe('lib/DateFormatter.js', () => {
   test('constructor', () => {

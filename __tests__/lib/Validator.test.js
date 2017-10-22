@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 describe('lib/Validator.js', () => {
   test('constructor', () => {
     const Validator = require('../../lib/Validator.js');

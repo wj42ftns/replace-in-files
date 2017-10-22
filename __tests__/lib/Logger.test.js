@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 describe('lib/Logger.js', () => {
   test('constructor', () => {
     const Logger = require('../../lib/Logger.js');

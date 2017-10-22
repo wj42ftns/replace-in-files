@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 describe('lib/Configurator.js', () => {
   test('constructor', () => {
     const Configurator = require('../../lib/Configurator.js');

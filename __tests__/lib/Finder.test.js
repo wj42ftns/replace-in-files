@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 describe('lib/Finder.js', () => {
   test('constructor', () => {
     const Finder = require('../../lib/Finder.js');

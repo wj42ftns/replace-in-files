@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 describe('lib/index.js', () => {
   test('module.exports workflow', () => {
     const wrapper = require('../../lib/index.js');

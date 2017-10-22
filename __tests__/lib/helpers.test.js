@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 describe('lib/helpers.js', () => {
   test('handleError', () => {
     const helpers = require('../../lib/helpers.js');

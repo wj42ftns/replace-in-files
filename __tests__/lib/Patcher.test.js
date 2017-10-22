@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 describe('lib/Patcher.js', () => {
   test('constructor', () => {
     const Patcher = require('../../lib/Patcher.js');
