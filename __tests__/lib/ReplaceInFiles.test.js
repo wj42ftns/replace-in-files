@@ -11,7 +11,6 @@ describe('lib/ReplaceInFiles.js', () => {
     const replaceInFiles = new ReplaceInFiles(options);
 
     expect(replaceInFiles.options).toBe(options);
-    expect(replaceInFiles.logger).toBeNull();
   });
   genTest('run', function* () {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
@@ -25,7 +24,6 @@ describe('lib/ReplaceInFiles.js', () => {
     const paths = 'paths';
 
     const replaceInFiles = new ReplaceInFiles();
-    replaceInFiles.logger = 'logger';
     replaceInFiles.validateOptions = fn();
     replaceInFiles.setConfings = fn({
       findFilesOptions,
@@ -33,8 +31,13 @@ describe('lib/ReplaceInFiles.js', () => {
       replaceOptions,
     });
 
-    const Logger = require('../../lib/Logger');
-    const logger = new Logger(loggerOptions);
+    jest.mock('../../lib/Logger');
+    const loggerResult = 'loggerResult';
+    const logger = {
+      getResult: fn(loggerResult),
+      run: fn(),
+    };
+    const Logger = require('../../lib/Logger').mockImplementation(() => logger);
 
     ReplaceInFiles.handlerActions = pFn(paths);
     ReplaceInFiles.getPathsToFiles = pFn(pathsToFiles);
@@ -47,18 +50,23 @@ describe('lib/ReplaceInFiles.js', () => {
     expect(replaceInFiles.setConfings).toHaveBeenCalledTimes(1);
     expect(replaceInFiles.setConfings).toHaveBeenCalledWith();
 
+    expect(Logger).toHaveBeenCalledTimes(1);
+    expect(Logger).toHaveBeenCalledWith(loggerOptions);
+
+    expect(logger.run).toHaveBeenCalledTimes(1);
+    expect(logger.run).toHaveBeenCalledWith();
+
+    expect(logger.getResult).toHaveBeenCalledTimes(1);
+    expect(logger.getResult).toHaveBeenCalledWith();
+
 
     expect(ReplaceInFiles.getPathsToFiles).toHaveBeenCalledTimes(1);
     expect(ReplaceInFiles.getPathsToFiles).toHaveBeenCalledWith(findFilesOptions);
 
     expect(ReplaceInFiles.handlerActions).toHaveBeenCalledTimes(1);
-    expect(ReplaceInFiles.handlerActions)
-      .toHaveBeenCalledWith(replaceOptions, pathsToFiles, logger);
+    expect(ReplaceInFiles.handlerActions).toHaveBeenCalledWith(replaceOptions, pathsToFiles);
 
-    expect(result).toEqual({
-      paths: logger.paths,
-      countOfMatchesByPaths: logger.countOfMatchesByPaths
-    });
+    expect(result).toBe(loggerResult);
   });
   test('validateOptions', () => {
     const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');

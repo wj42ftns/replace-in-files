@@ -1,13 +1,12 @@
+const { FIND_MATCHES } = require('../../lib/constants');
+
 describe('lib/Finder.js', () => {
   test('constructor', () => {
     const Finder = require('../../lib/Finder.js');
     const options = 'options';
-    const logger = 'logger';
 
-    const finder = new Finder(options, logger);
-
+    const finder = new Finder(options);
     expect(finder.options).toBe(options);
-    expect(finder.logger).toBe(logger);
   });
   describe('run', () => {
     test('if Finder.isFindRegxInString return true', () => {
@@ -24,14 +23,10 @@ describe('lib/Finder.js', () => {
         path,
         data
       };
-      const loggerOptions = {
-        returnCountOfMatchesByPaths: true,
-        returnPaths: true,
-      };
-      const Logger = require('../../lib/Logger');
+      const mocThis = { options };
 
-      const logger = new Logger(loggerOptions);
-      const mocThis = { options, logger };
+      const helpers = require('../../lib/helpers');
+      helpers.eventEmitter.emit = fn();
 
       const finder = new Finder();
       finder.run.call(mocThis);
@@ -39,7 +34,9 @@ describe('lib/Finder.js', () => {
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(1);
       expect(Finder.isFindRegxInString).toHaveBeenCalledWith(data, from);
 
-      expect(logger.countOfMatchesByPaths).toEqual({ [path]: matches.length });
+      expect(helpers.eventEmitter.emit).toHaveBeenCalledTimes(1);
+      expect(helpers.eventEmitter.emit)
+        .toHaveBeenCalledWith(FIND_MATCHES, { [path]: matches.length });
     });
     test('if Finder.isFindRegxInString return false', () => {
       const Finder = require('../../lib/Finder.js');
