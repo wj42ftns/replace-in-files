@@ -133,23 +133,17 @@ describe('lib/ReplaceInFiles.js', () => {
 
     const replaceOptions = 'replaceOptions';
     const pathsToFiles = [1, 2];
-    const paths = 'paths';
-    const logger = {
-      paths
-    };
 
-    yield ReplaceInFiles.handlerActions(replaceOptions, pathsToFiles, logger);
+    yield ReplaceInFiles.handlerActions(replaceOptions, pathsToFiles);
 
     expect(ReplaceInFiles.handlerAction).toHaveBeenCalledTimes(2);
     expect(ReplaceInFiles.handlerAction).toHaveBeenCalledWith(
       replaceOptions,
-      pathsToFiles[0],
-      logger
+      pathsToFiles[0]
     );
     expect(ReplaceInFiles.handlerAction).toHaveBeenCalledWith(
       replaceOptions,
-      pathsToFiles[1],
-      logger
+      pathsToFiles[1]
     );
   });
   describe('handlerAction', () => {
@@ -180,15 +174,14 @@ describe('lib/ReplaceInFiles.js', () => {
       };
 
       const path = 'path';
-      const logger = 'logger';
 
-      yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+      yield ReplaceInFiles.handlerAction(replaceOptions, path);
 
       expect(helpers.fs.readFile).toHaveBeenCalledTimes(1);
       expect(helpers.fs.readFile).toHaveBeenCalledWith(path, encoding);
 
       expect(ReplaceInFiles.findMatches).toHaveBeenCalledTimes(1);
-      expect(ReplaceInFiles.findMatches).toHaveBeenCalledWith({ path, data, from }, logger);
+      expect(ReplaceInFiles.findMatches).toHaveBeenCalledWith({ path, data, from });
 
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(0);
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(0);
@@ -220,9 +213,8 @@ describe('lib/ReplaceInFiles.js', () => {
       };
 
       const path = 'path';
-      const logger = 'logger';
 
-      yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+      yield ReplaceInFiles.handlerAction(replaceOptions, path);
 
       expect(helpers.fs.readFile).toHaveBeenCalledTimes(1);
       expect(helpers.fs.readFile).toHaveBeenCalledWith(path, encoding);
@@ -235,7 +227,7 @@ describe('lib/ReplaceInFiles.js', () => {
 
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
       expect(ReplaceInFiles.replaceMatches)
-        .toHaveBeenCalledWith({ path, data, from, to, saveOldFile }, logger);
+        .toHaveBeenCalledWith({ path, data, from, to, saveOldFile, encoding });
     });
     genTest('3', function* () {
       const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
@@ -264,9 +256,8 @@ describe('lib/ReplaceInFiles.js', () => {
       };
 
       const path = 'path';
-      const logger = 'logger';
 
-      yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+      yield ReplaceInFiles.handlerAction(replaceOptions, path);
 
       expect(helpers.fs.readFile).toHaveBeenCalledTimes(1);
       expect(helpers.fs.readFile).toHaveBeenCalledWith(path, encoding);
@@ -306,9 +297,8 @@ describe('lib/ReplaceInFiles.js', () => {
       };
 
       const path = 'path';
-      const logger = 'logger';
 
-      yield ReplaceInFiles.handlerAction(replaceOptions, path, logger);
+      yield ReplaceInFiles.handlerAction(replaceOptions, path);
 
       expect(helpers.fs.readFile).toHaveBeenCalledTimes(1);
       expect(helpers.fs.readFile).toHaveBeenCalledWith(path, encoding);
@@ -318,7 +308,7 @@ describe('lib/ReplaceInFiles.js', () => {
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(0);
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
       expect(ReplaceInFiles.replaceMatches)
-        .toHaveBeenCalledWith({ path, data, from, to, saveOldFile }, logger);
+        .toHaveBeenCalledWith({ path, data, from, to, saveOldFile, encoding });
     });
   });
   test('findMatches', () => {
@@ -328,7 +318,6 @@ describe('lib/ReplaceInFiles.js', () => {
     const data = 'data';
     const from = 'from';
     const settings = { path, data, from };
-    const logger = 'logger';
 
     jest.mock('../../lib/Finder');
     const paths = 'paths';
@@ -337,10 +326,10 @@ describe('lib/ReplaceInFiles.js', () => {
       .mockImplementation(() => moc);
 
 
-    ReplaceInFiles.findMatches(settings, logger);
+    ReplaceInFiles.findMatches(settings);
 
     expect(Finder).toHaveBeenCalledTimes(1);
-    expect(Finder).toHaveBeenCalledWith(settings, logger);
+    expect(Finder).toHaveBeenCalledWith(settings);
 
     expect(moc.run).toHaveBeenCalledTimes(1);
     expect(moc.run).toHaveBeenCalledWith();
@@ -355,8 +344,8 @@ describe('lib/ReplaceInFiles.js', () => {
       const from = 'from';
       const to = 'to';
       const saveOldFile = true;
-      const settings = { path, data, from, to, saveOldFile };
-      const logger = 'logger';
+      const encoding = 'encoding';
+      const settings = { path, data, from, to, saveOldFile, encoding };
 
       jest.mock('../../lib/Patcher');
       const updated = 'updated';
@@ -367,10 +356,10 @@ describe('lib/ReplaceInFiles.js', () => {
       helpers.fs.writeFile = pFn();
 
 
-      yield ReplaceInFiles.replaceMatches(settings, logger);
+      yield ReplaceInFiles.replaceMatches(settings);
 
       expect(Patcher).toHaveBeenCalledTimes(1);
-      expect(Patcher).toHaveBeenCalledWith({ path, data, from, to }, logger);
+      expect(Patcher).toHaveBeenCalledWith({ path, data, from, to });
 
       expect(moc.run).toHaveBeenCalledTimes(1);
       expect(moc.run).toHaveBeenCalledWith();
@@ -379,7 +368,7 @@ describe('lib/ReplaceInFiles.js', () => {
       expect(ReplaceInFiles.saveOldFile).toHaveBeenCalledWith({ path, data });
 
       expect(helpers.fs.writeFile).toHaveBeenCalledTimes(1);
-      expect(helpers.fs.writeFile).toHaveBeenCalledWith(path, updated);
+      expect(helpers.fs.writeFile).toHaveBeenCalledWith(path, updated, encoding);
     });
     genTest('2', function* () {
       const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
@@ -390,8 +379,8 @@ describe('lib/ReplaceInFiles.js', () => {
       const from = 'from';
       const to = 'to';
       const saveOldFile = false;
-      const settings = { path, data, from, to, saveOldFile };
-      const logger = 'logger';
+      const encoding = 'encoding';
+      const settings = { path, data, from, to, saveOldFile, encoding };
 
       jest.mock('../../lib/Patcher');
       const updated = 'updated';
@@ -402,10 +391,10 @@ describe('lib/ReplaceInFiles.js', () => {
       helpers.fs.writeFile = pFn();
 
 
-      yield ReplaceInFiles.replaceMatches(settings, logger);
+      yield ReplaceInFiles.replaceMatches(settings);
 
       expect(Patcher).toHaveBeenCalledTimes(1);
-      expect(Patcher).toHaveBeenCalledWith({ path, data, from, to }, logger);
+      expect(Patcher).toHaveBeenCalledWith({ path, data, from, to });
 
       expect(moc.run).toHaveBeenCalledTimes(1);
       expect(moc.run).toHaveBeenCalledWith();
@@ -413,7 +402,7 @@ describe('lib/ReplaceInFiles.js', () => {
       expect(ReplaceInFiles.saveOldFile).toHaveBeenCalledTimes(0);
 
       expect(helpers.fs.writeFile).toHaveBeenCalledTimes(1);
-      expect(helpers.fs.writeFile).toHaveBeenCalledWith(path, updated);
+      expect(helpers.fs.writeFile).toHaveBeenCalledWith(path, updated, encoding);
     });
   });
   genTest('saveOldFile', function* () {
