@@ -1,4 +1,5 @@
 examples/generatedAfter
+tmp*
 
 # Logs
 logs
