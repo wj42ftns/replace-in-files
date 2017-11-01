@@ -7,15 +7,23 @@
     "start": "node --inspect ./src/index.js",
     "watch": "./node_modules/jest/bin/jest.js --watch --no-cache",
     "test": "./node_modules/jest/bin/jest.js",
-    "test-debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i --env jest-environment-node-debug"
+    "test-debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i --env jest-environment-node-debug",
+    "precommit": "npm run message && npm run lint-staged && npm run test",
+    "message": "echo \"will be lint staged .js files and run tests\" && exit 0",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": ["eslint --fix", "git add"]
   },
   "devDependencies": {
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
     "fs-extra": "^4.0.0",
+    "husky": "^0.14.3",
     "jest": "^20.0.4",
     "jest-environment-node-debug": "^2.0.0",
+    "lint-staged": "^4.3.0",
     "mockdate": "^2.0.2"
   },
   "dependencies": {
