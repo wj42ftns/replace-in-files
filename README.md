@@ -47,6 +47,7 @@ const options = {
 
 
   // format: `${fileName}-${year}-${month}-${day}_${hour}:${minute}:${second}.{fileExtension}`
+  //            fileName-2017-11-01_21:29:55.js
   // date of createFile old file or last modificate (if not find create date)
   saveOldFile: false // default
 
