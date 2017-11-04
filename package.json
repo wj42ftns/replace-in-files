@@ -72,7 +72,7 @@
     "clearMocks": true,
     "resetModules": true,
     "resetMocks": true,
-    "verbose": true,
+    "verbose": false,
     "automock": false,
     "moduleFileExtensions": [
       "js",
