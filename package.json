@@ -1,6 +1,9 @@
 {
   "name": "replace-in-files",
   "version": "1.0.0",
+  "engines" : {
+    "node" : ">=6.0.0"
+  },
   "author": {
     "name": "Dmitriy Salnikov",
     "email": "wj42ftns@gmail.com",
