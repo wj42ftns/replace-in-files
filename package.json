@@ -1,8 +1,36 @@
 {
   "name": "replace-in-files",
   "version": "1.0.0",
-  "main": "index.js",
+  "author": {
+    "name": "Dmitriy Salnikov",
+    "email": "wj42ftns@gmail.com",
+    "url": "https://github.com/wj42ftns"
+  },
   "license": "MIT",
+  "description": "Replace text in one or more files or globs. Works asynchronously with promises.",
+  "main": "index.js",
+  "homepage": "https://github.com/wj42ftns/replace-in-files",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wj42ftns/replace-in-files"
+  },
+  "bugs": {
+    "url": "https://github.com/wj42ftns/replace-in-files/issues",
+    "email" : "wj42ftns@gmail.com"
+  },
+  "keywords": [
+    "text",
+    "texts",
+    "replace",
+    "replaces",
+    "replacement",
+    "replacements",
+    "content",
+    "contents",
+    "file",
+    "files",
+    "fs"
+  ],
   "scripts": {
     "start": "node --inspect ./src/index.js",
     "watch": "./node_modules/jest/bin/jest.js --watch --no-cache",
