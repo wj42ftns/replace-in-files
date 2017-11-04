@@ -42,7 +42,10 @@
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add"]
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "eslint": "^4.3.0",
@@ -62,13 +65,15 @@
     "lodash": "^4.17.4"
   },
   "jest": {
-    "collectCoverage": false,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib/**/*.js"
+    ],
     "clearMocks": true,
     "resetModules": true,
     "resetMocks": true,
     "verbose": true,
     "automock": false,
-    "bail": false,
     "moduleFileExtensions": [
       "js",
       "json"
