@@ -170,5 +170,8 @@ const data = replaceInFiles({
 
 ```
 
+## Version information
+Replace in files requires Node 6 or higher.
+
 ## License
 (MIT License)
