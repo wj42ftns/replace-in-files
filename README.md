@@ -144,11 +144,13 @@ const data = replaceInFiles({
 
 // data could like:
 {
-  countOfMatchesByPaths: {
-    'path/to/files/file1.html': 5,
-    'path/to/files/file3.html': 1,
-    'path/to/files/file5.html': 3
-  },
+  countOfMatchesByPaths: [
+    {
+      'path/to/files/file1.html': 5,
+      'path/to/files/file3.html': 1,
+      'path/to/files/file5.html': 3
+    }
+  ],
   paths: [
     'path/to/files/file1.html',
     'path/to/files/file3.html',
@@ -158,7 +160,9 @@ const data = replaceInFiles({
 
 // if empty:
 {
-  countOfMatchesByPaths: {},
+  countOfMatchesByPaths: [
+    {}
+  ],
   paths: []
 }
 

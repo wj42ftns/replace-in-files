@@ -94,7 +94,9 @@ describe('lib/Logger.js', () => {
 
     const result = logger.getCountOfMatchesByPaths.call(mocThis);
 
-    expect(result).toEqual(mocThis.countOfMatchesByPaths);
+    expect(result).toEqual([
+      mocThis.countOfMatchesByPaths
+    ]);
   });
   describe('getResult', () => {
     test('1', () => {
@@ -114,11 +116,13 @@ describe('lib/Logger.js', () => {
       const result = logger.getResult();
 
       expect(result).toEqual({
-        countOfMatchesByPaths: {
-          path1: 3,
-          path2: 1,
-          path3: 1,
-        },
+        countOfMatchesByPaths: [
+          {
+            path1: 3,
+            path2: 1,
+            path3: 1,
+          }
+        ],
         paths: [
           'path1',
           'path2',
@@ -167,11 +171,13 @@ describe('lib/Logger.js', () => {
       const result = logger.getResult();
 
       expect(result).toEqual({
-        countOfMatchesByPaths: {
-          path1: 3,
-          path2: 1,
-          path3: 1,
-        }
+        countOfMatchesByPaths: [
+          {
+            path1: 3,
+            path2: 1,
+            path3: 1,
+          }
+        ]
       });
     });
     test('4', () => {
