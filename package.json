@@ -16,7 +16,7 @@
   },
   "bugs": {
     "url": "https://github.com/wj42ftns/replace-in-files/issues",
-    "email" : "wj42ftns@gmail.com"
+    "email": "wj42ftns@gmail.com"
   },
   "keywords": [
     "text",
@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "coveralls": "^3.0.0",
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
