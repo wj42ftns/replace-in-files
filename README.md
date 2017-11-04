@@ -1,5 +1,5 @@
 # replace-in-files
-Replace text in one or more files or globs. Work asynchronously with promises.
+Replace text in one or more files or globs. Works asynchronously with promises.
 
 [![npm version](https://img.shields.io/npm/v/replace-in-files.svg)](https://www.npmjs.com/package/replace-in-files)
 [![github issues](https://img.shields.io/github/issues/wj42ftns/replace-in-files.svg)](https://github.com/wj42ftns/replace-in-files/issues)
