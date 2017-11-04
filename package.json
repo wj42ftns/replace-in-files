@@ -8,6 +8,7 @@
     "watch": "./node_modules/jest/bin/jest.js --watch --no-cache",
     "test": "./node_modules/jest/bin/jest.js",
     "test-debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i --env jest-environment-node-debug",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js --quiet \"**/*.js\"",
     "precommit": "npm run message && npm run lint-staged && npm run test",
     "message": "echo \"will be lint staged .js files and run tests\" && exit 0",
     "lint-staged": "lint-staged"
