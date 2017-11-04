@@ -4,3 +4,4 @@ node_js:
   - "8"
   - "7"
   - "6"
+script: "yarn eslint && yarn test && yarn coveralls"
