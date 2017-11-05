@@ -2,6 +2,7 @@
 Replace text in one or more files or globs. Works asynchronously with promises.
 
 [![npm version](https://img.shields.io/npm/v/replace-in-files.svg)](https://www.npmjs.com/package/replace-in-files)
+[![dependencies Status](https://david-dm.org/wj42ftns/replace-in-files/status.svg)](https://david-dm.org/wj42ftns/replace-in-files)
 [![Build Status](https://travis-ci.org/wj42ftns/replace-in-files.svg?branch=master)](https://travis-ci.org/wj42ftns/replace-in-files)
 [![Coverage Status](https://coveralls.io/repos/github/wj42ftns/replace-in-files/badge.svg)](https://coveralls.io/github/wj42ftns/replace-in-files)
 [![github issues](https://img.shields.io/github/issues/wj42ftns/replace-in-files.svg)](https://github.com/wj42ftns/replace-in-files/issues)
