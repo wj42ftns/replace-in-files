@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "9"
+  - "8"
+  - "7"
+  - "6"
+  - "6.0.0"
+script: "yarn eslint && yarn test && yarn coveralls"
+deploy:
+  provider: npm
+  email: wj42ftns@gmail.com
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
+    repo: wj42ftns/replace-in-files
+notifications:
+  email:
+    recipients:
+      - wj42ftns@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always

@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 const fs = require('fs-extra');
-const resolve = require('path').resolve;
+const { resolve } = require('path');
 
 const testFile1 = resolve('examples/before/testFile1.js');
 
@@ -28,7 +28,7 @@ describe('outer work replace-in-files', () => {
       expect(fsResult).toBe(expectedResult);
       expect(result).toBeObj();
       expect(Object.keys(result).length).toBe(2);
-      expect(result.countOfMatchesByPaths[resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
@@ -51,7 +51,7 @@ describe('outer work replace-in-files', () => {
       expect(fsResult).toBe(expectedResult);
       expect(result).toBeObj();
       expect(Object.keys(result).length).toBe(2);
-      expect(result.countOfMatchesByPaths[resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
@@ -72,7 +72,7 @@ describe('outer work replace-in-files', () => {
       expect(fsResult).toBe(expectedResult);
       expect(result).toBeObj();
       expect(Object.keys(result).length).toBe(2);
-      expect(result.countOfMatchesByPaths[resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
@@ -97,7 +97,7 @@ describe('outer work replace-in-files', () => {
       expect(fsResult).toBe(expectedResult);
       expect(result).toBeObj();
       expect(Object.keys(result).length).toBe(2);
-      expect(result.countOfMatchesByPaths[resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
@@ -140,7 +140,7 @@ describe('outer work replace-in-files', () => {
       expect(fsResult).toBe(expectedResult);
       expect(result).toBeObj();
       expect(Object.keys(result).length).toBe(2);
-      expect(result.countOfMatchesByPaths[resolve('examples/generatedAfter/fromIsString.js')]).toBe(7);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/fromIsString.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/fromIsString.js'));
     });
@@ -165,7 +165,7 @@ describe('outer work replace-in-files', () => {
       expect(fsResult).toBe(expectedResult);
       expect(result).toBeObj();
       expect(Object.keys(result).length).toBe(2);
-      expect(result.countOfMatchesByPaths[resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
@@ -192,7 +192,7 @@ describe('outer work replace-in-files', () => {
       expect(fsResult).toBe(expectedResult);
       expect(result).toBeObj();
       expect(Object.keys(result).length).toBe(2);
-      expect(result.countOfMatchesByPaths[resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
@@ -219,7 +219,7 @@ describe('outer work replace-in-files', () => {
       expect(fsResult).toBe(expectedResult);
       expect(result).toBeObj();
       expect(Object.keys(result).length).toBe(2);
-      expect(result.countOfMatchesByPaths[resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });

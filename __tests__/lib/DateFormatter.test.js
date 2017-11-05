@@ -1,8 +1,5 @@
 const MockDate = require('mockdate');
 
-MockDate.set('Thu May 08 2042 15:16:23 GMT+0300');
-const mocDate = new Date();
-
 describe('lib/DateFormatter.js', () => {
   test('constructor', () => {
     const DateFormatter = require('../../lib/DateFormatter.js');
@@ -56,10 +53,25 @@ describe('lib/DateFormatter.js', () => {
     result = DateFormatter.formatSameLength('31');
     expect(result).toBe('31');
   });
-  test('formating', () => {
-    const DateFormatter = require('../../lib/DateFormatter.js');
+  describe('formating', () => {
+    test('1', () => {
+      const DateFormatter = require('../../lib/DateFormatter.js');
+      MockDate.set('Thu May 08 2042 15:16:23 GMT');
+      const mocDate = new Date();
 
-    const result = DateFormatter.formating({ date: mocDate });
-    expect(result).toBe('2042-05-08_15:16:23');
+      const result = DateFormatter.formating({ date: mocDate });
+      expect(result).toBe('2042-05-08_15:16:23');
+    });
+    test('2', () => {
+      const DateFormatter = require('../../lib/DateFormatter.js');
+      MockDate.set('Thu May 08 2042 15:16:23 GMT+0300');
+      const mocDate = new Date();
+
+      const result = DateFormatter.formating({ date: mocDate });
+      expect(result).toBe('2042-05-08_12:16:23');
+    });
+  });
+  test('formating', () => {
+
   });
 });
