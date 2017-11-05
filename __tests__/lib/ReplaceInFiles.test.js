@@ -226,8 +226,14 @@ describe('lib/ReplaceInFiles.js', () => {
         .toHaveBeenCalledWith(data, replaceFileOnlyIfMatchRegxpInFile);
 
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
-      expect(ReplaceInFiles.replaceMatches)
-        .toHaveBeenCalledWith({ path, data, from, to, saveOldFile, encoding });
+      expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledWith({
+        data,
+        encoding,
+        from,
+        path,
+        saveOldFile,
+        to,
+      });
     });
     genTest('3', function* () {
       const ReplaceInFiles = require('../../lib/ReplaceInFiles.js');
@@ -307,8 +313,14 @@ describe('lib/ReplaceInFiles.js', () => {
 
       expect(Finder.isFindRegxInString).toHaveBeenCalledTimes(0);
       expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledTimes(1);
-      expect(ReplaceInFiles.replaceMatches)
-        .toHaveBeenCalledWith({ path, data, from, to, saveOldFile, encoding });
+      expect(ReplaceInFiles.replaceMatches).toHaveBeenCalledWith({
+        data,
+        encoding,
+        from,
+        path,
+        saveOldFile,
+        to,
+      });
     });
   });
   test('findMatches', () => {
@@ -345,7 +357,14 @@ describe('lib/ReplaceInFiles.js', () => {
       const to = 'to';
       const saveOldFile = true;
       const encoding = 'encoding';
-      const settings = { path, data, from, to, saveOldFile, encoding };
+      const settings = {
+        data,
+        encoding,
+        from,
+        path,
+        saveOldFile,
+        to,
+      };
 
       jest.mock('../../lib/Patcher');
       const updated = 'updated';
@@ -359,7 +378,12 @@ describe('lib/ReplaceInFiles.js', () => {
       yield ReplaceInFiles.replaceMatches(settings);
 
       expect(Patcher).toHaveBeenCalledTimes(1);
-      expect(Patcher).toHaveBeenCalledWith({ path, data, from, to });
+      expect(Patcher).toHaveBeenCalledWith({
+        data,
+        from,
+        path,
+        to,
+      });
 
       expect(moc.run).toHaveBeenCalledTimes(1);
       expect(moc.run).toHaveBeenCalledWith();
@@ -380,7 +404,14 @@ describe('lib/ReplaceInFiles.js', () => {
       const to = 'to';
       const saveOldFile = false;
       const encoding = 'encoding';
-      const settings = { path, data, from, to, saveOldFile, encoding };
+      const settings = {
+        data,
+        encoding,
+        from,
+        path,
+        saveOldFile,
+        to,
+      };
 
       jest.mock('../../lib/Patcher');
       const updated = 'updated';
@@ -394,7 +425,12 @@ describe('lib/ReplaceInFiles.js', () => {
       yield ReplaceInFiles.replaceMatches(settings);
 
       expect(Patcher).toHaveBeenCalledTimes(1);
-      expect(Patcher).toHaveBeenCalledWith({ path, data, from, to });
+      expect(Patcher).toHaveBeenCalledWith({
+        data,
+        from,
+        path,
+        to,
+      });
 
       expect(moc.run).toHaveBeenCalledTimes(1);
       expect(moc.run).toHaveBeenCalledWith();

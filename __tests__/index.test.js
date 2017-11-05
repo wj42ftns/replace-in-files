@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 
 const fs = require('fs-extra');
-const resolve = require('path').resolve;
+const { resolve } = require('path');
 
 const testFile1 = resolve('examples/before/testFile1.js');
 

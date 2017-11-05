@@ -40,7 +40,7 @@
     "test": "./node_modules/jest/bin/jest.js",
     "test-debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i --env jest-environment-node-debug",
     "coveralls": "yarn test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js --quiet \"**/*.js\"",
+    "eslint": "rm -rf ./coverage && node ./node_modules/eslint/bin/eslint.js --quiet \"**/*.js\"",
     "precommit": "npm run message && rm -rf ./coverage && npm run lint-staged && npm run test",
     "message": "echo \"will be lint staged .js files and run tests\" && exit 0",
     "lint-staged": "lint-staged"
