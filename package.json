@@ -54,11 +54,11 @@
   "devDependencies": {
     "coveralls": "^3.0.0",
     "eslint": "^4.3.0",
-    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.7.0",
     "fs-extra": "^4.0.0",
     "husky": "^0.14.3",
-    "jest": "^20.0.4",
+    "jest": "^21.2.1",
     "jest-environment-node-debug": "^2.0.0",
     "lint-staged": "^4.3.0",
     "mockdate": "^2.0.2"
