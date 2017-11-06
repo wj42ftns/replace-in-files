@@ -36,16 +36,18 @@ describe('lib/Patcher.js', () => {
       const helpers = require('../../lib/helpers');
       helpers.eventEmitter.emit = fn();
       const path = 'path';
+      const step = 'step';
       const to = 'string';
       const options = {
         to,
         path,
+        step,
       };
 
       const result = Patcher.prepareReplaceFunction(options)();
 
       expect(helpers.eventEmitter.emit).toHaveBeenCalledTimes(1);
-      expect(helpers.eventEmitter.emit).toHaveBeenCalledWith(CHANGE_FILE, path);
+      expect(helpers.eventEmitter.emit).toHaveBeenCalledWith(CHANGE_FILE, [step, path]);
 
       expect(result).toBe(to);
     });
@@ -55,11 +57,13 @@ describe('lib/Patcher.js', () => {
       const helpers = require('../../lib/helpers');
       helpers.eventEmitter.emit = fn();
       const path = 'path';
+      const step = 'step';
       const mocResult = 'mocResult';
       const to = fn(mocResult);
       const options = {
         to,
         path,
+        step,
       };
       const arg1 = 'arg1';
       const arg2 = 'arg2';
@@ -69,7 +73,7 @@ describe('lib/Patcher.js', () => {
       expect(to).toHaveBeenCalledTimes(1);
       expect(to).toHaveBeenCalledWith(arg1, arg2, path);
       expect(helpers.eventEmitter.emit).toHaveBeenCalledTimes(1);
-      expect(helpers.eventEmitter.emit).toHaveBeenCalledWith(CHANGE_FILE, path);
+      expect(helpers.eventEmitter.emit).toHaveBeenCalledWith(CHANGE_FILE, [step, path]);
       expect(result).toBe(mocResult);
     });
   });

@@ -1,6 +1,11 @@
 # replace-in-files
-Replace text in one or more files or globs. Work asynchronously with promises.
+Replace text in one or more files or globs. Works asynchronously with promises.
 
+[![npm version](https://img.shields.io/npm/v/replace-in-files.svg)](https://www.npmjs.com/package/replace-in-files)
+[![dependencies Status](https://david-dm.org/wj42ftns/replace-in-files/status.svg)](https://david-dm.org/wj42ftns/replace-in-files)
+[![Build Status](https://travis-ci.org/wj42ftns/replace-in-files.svg?branch=master)](https://travis-ci.org/wj42ftns/replace-in-files)
+[![Coverage Status](https://coveralls.io/repos/github/wj42ftns/replace-in-files/badge.svg)](https://coveralls.io/github/wj42ftns/replace-in-files)
+[![github issues](https://img.shields.io/github/issues/wj42ftns/replace-in-files.svg)](https://github.com/wj42ftns/replace-in-files/issues)
 ## Installation
 ```shell
 # Using npm
@@ -45,6 +50,7 @@ const options = {
 
 
   // format: `${fileName}-${year}-${month}-${day}_${hour}:${minute}:${second}.{fileExtension}`
+  //            fileName-2017-11-01_21:29:55.js
   // date of createFile old file or last modificate (if not find create date)
   saveOldFile: false // default
 
@@ -73,8 +79,10 @@ const replaceInFiles = require('replace-in-files');
 
 replaceInFiles(options)
   .then({ changedFiles, countOfMatchesByPaths } => {
-    console.log('Modified files:', changedFiles);
+    console.log('Modified files:', changedFiles);,
+    replaceInFilesOptions
     console.log('Count of matches by paths:', countOfMatchesByPaths);
+    console.log('was called with:', replaceInFilesOptions);
   })
   .catch(error => {
     console.error('Error occurred:', error);
@@ -92,10 +100,12 @@ const co = require('co');
 co(function* () {
   const {
     changedFiles,
-    countOfMatchesByPaths
+    countOfMatchesByPaths,
+    replaceInFilesOptions
   } = yield replaceInFiles(options);
   console.log('Modified files:', changedFiles);
   console.log('Count of matches by paths:', countOfMatchesByPaths);
+  console.log('was called with:', replaceInFilesOptions);
 }).catch((error) => {
   console.log('Error occurred:', error);
 });
@@ -112,10 +122,44 @@ async function main() {
   try {
     const {
       changedFiles,
-      countOfMatchesByPaths
+      countOfMatchesByPaths,
+      replaceInFilesOptions
     } = await replaceInFiles(options);
     console.log('Modified files:', changedFiles);
     console.log('Count of matches by paths:', countOfMatchesByPaths);
+    console.log('was called with:', replaceInFilesOptions);
+  } catch (error) {
+    console.log('Error occurred:', error);
+  }
+}
+
+main();
+```
+
+## Sequentially replacement
+
+use .pipe  - will be replaced only files found at first replacement
+
+.pipe supported only: { from, to } (other options will received from options on first replacement)
+
+```js
+const replaceInFiles = require('replace-in-files');
+
+// ...
+
+async function main() {
+  try {
+    const {
+      changedFiles,
+      countOfMatchesByPaths,
+      replaceInFilesOptions
+    } = await replaceInFiles(options)
+      .pipe({ from: 'foo', to: 'bar' })
+      .pipe({ from: 'first', to: 'second' })
+      .pipe({ from: /const/g, to: () => 'var' });
+    console.log('Modified files:', changedFiles);
+    console.log('Count of matches by paths:', countOfMatchesByPaths);
+    console.log('was called with:', replaceInFilesOptions);
   } catch (error) {
     console.log('Error occurred:', error);
   }
@@ -142,25 +186,77 @@ const data = replaceInFiles({
 
 // data could like:
 {
-  countOfMatchesByPaths: {
-    'path/to/files/file1.html': 5,
-    'path/to/files/file3.html': 1,
-    'path/to/files/file5.html': 3
-  },
+  countOfMatchesByPaths: [
+    {
+      'path/to/files/file1.html': 5,
+      'path/to/files/file3.html': 1,
+      'path/to/files/file5.html': 3
+    }
+  ],
   paths: [
     'path/to/files/file1.html',
     'path/to/files/file3.html',
     'path/to/files/file5.html',
+  ],
+  replaceInFilesOptions: [
+    {
+      files: 'path/to/files/*.html',
+      from: 'a',
+      to: 'b',
+    }
   ]
 }
 
 // if empty:
 {
-  countOfMatchesByPaths: {},
+  countOfMatchesByPaths: [
+    {}
+  ],
   paths: []
 }
 
+// if used 2 .pipe
+{
+  countOfMatchesByPaths: [
+    {
+      'path/to/files/file1.html': 5,
+      'path/to/files/file3.html': 1,
+      'path/to/files/file5.html': 3
+    },
+    {
+      'path/to/files/file5.html': 4
+    },
+    {
+      'path/to/files/file1.html': 2,
+      'path/to/files/file5.html': 4
+    }
+  ],
+  paths: [
+    'path/to/files/file1.html',
+    'path/to/files/file3.html',
+    'path/to/files/file5.html',
+  ],
+  replaceInFilesOptions: [
+    {
+      files: 'path/to/files/*.html',
+      from: 'a',
+      to: 'b',
+    },
+    {
+      from: 'c',
+      to: 'd',
+    },
+    {
+      from: 'e',
+      to: 'f',
+    }
+  ]
+}
+
 ```
+
+## Version information
+Replace in files requires Node 6 or higher.
 
 ## License
 (MIT License)
