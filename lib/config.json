@@ -43,6 +43,7 @@
     "defaultEncoding": "utf8",
     "defaultReturnCountOfMatchesByPaths": true,
     "defaultReturnPaths": true,
+    "defaultReplaceInFilesOptions": true,
     "defaultSaveOldFile": false,
     "defaultOnlyFindPathsWithoutReplace": false,
     "defaultOptionsForFiles": {
