@@ -18,10 +18,12 @@ describe('lib/Finder.js', () => {
       const from = 'from';
       const path = 'path';
       const data = 'data';
+      const step = 'step';
       const options = {
         from,
         path,
-        data
+        data,
+        step
       };
       const mocThis = { options };
 
@@ -36,7 +38,7 @@ describe('lib/Finder.js', () => {
 
       expect(helpers.eventEmitter.emit).toHaveBeenCalledTimes(1);
       expect(helpers.eventEmitter.emit)
-        .toHaveBeenCalledWith(FIND_MATCHES, { [path]: matches.length });
+        .toHaveBeenCalledWith(FIND_MATCHES, [step, path], matches.length);
     });
     test('if Finder.isFindRegxInString return false', () => {
       const Finder = require('../../lib/Finder.js');

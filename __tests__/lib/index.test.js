@@ -4,7 +4,7 @@ describe('lib/index.js', () => {
 
     jest.mock('../../lib/helpers');
     const helpers = require('../../lib/helpers');
-    const callback = 'callback';
+    const callback = () => {};
     helpers.co = fn(callback);
 
     const options = 'options';
@@ -15,6 +15,7 @@ describe('lib/index.js', () => {
     expect(helpers.co).toHaveBeenCalledWith(wrapper.init, options);
 
     expect(result).toBe(callback);
+    expect(result.pipe).toBeFunc();
   });
   genTest('module.exports workflow', function* () {
     const wrapper = require('../../lib/index.js');

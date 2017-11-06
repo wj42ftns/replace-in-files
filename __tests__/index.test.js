@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const { resolve } = require('path');
 
 const testFile1 = resolve('examples/before/testFile1.js');
+const testFile2 = resolve('examples/before/testFile2.js');
 
 describe('outer work replace-in-files', () => {
   describe('testFile1', () => {
@@ -222,6 +223,42 @@ describe('outer work replace-in-files', () => {
       expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testOptions.js')]).toBe(7);
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
+    });
+  });
+  describe('testFile2', () => {
+    genTest('sequentially replaces', function* () {
+      const replaceInFiles = require('../index.js');
+      const files = [
+        resolve('examples/generatedAfter/testSequentially.js')
+      ];
+      yield fs.copy(testFile2, files[0]);
+
+      const mainSettings = {
+        files,
+        from: 'log',
+        to: 'myLog',
+      };
+
+      const result = yield replaceInFiles(mainSettings)
+        .pipe({ from: 'file', to: 'myFile' })
+        .pipe({ from: 'created2', to: 'test42' })
+        .pipe({ from: 'created1', to: 'test79' })
+        .pipe({ from: 'console.log(created2);', to: 'alert("worked!")' })
+        .pipe({ from: /test/g, to: 'TEST' });
+
+      const fsResult = yield fs.readFile(files[0], 'utf8');
+      const expectedResult = yield fs.readFile(resolve('examples/after/testSequentially.js'), 'utf8');
+      expect(fsResult).toBe(expectedResult);
+      expect(result).toBeObj();
+      expect(Object.keys(result).length).toBe(2);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testSequentially.js')]).toBe(1);
+      expect(result.countOfMatchesByPaths[1][resolve('examples/generatedAfter/testSequentially.js')]).toBe(1);
+      expect(result.countOfMatchesByPaths[2][resolve('examples/generatedAfter/testSequentially.js')]).toBe(1);
+      expect(result.countOfMatchesByPaths[3][resolve('examples/generatedAfter/testSequentially.js')]).toBe(1);
+      expect(result.countOfMatchesByPaths[4][resolve('examples/generatedAfter/testSequentially.js')]).toBe(1);
+      expect(result.countOfMatchesByPaths[5][resolve('examples/generatedAfter/testSequentially.js')]).toBe(2);
+      expect(result.paths.length).toBe(1);
+      expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testSequentially.js'));
     });
   });
 });
