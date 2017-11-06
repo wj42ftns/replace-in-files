@@ -159,7 +159,8 @@ describe('lib/Configurator.js', () => {
         onlyFindPathsWithoutReplace: false,
         encoding: 'utf32',
         replaceFileOnlyIfMatchRegxpInFile: /foo/,
-        saveOldFile: true
+        saveOldFile: true,
+        step: 0,
       });
     });
     test('2', () => {
@@ -183,7 +184,8 @@ describe('lib/Configurator.js', () => {
         to: 'to',
         encoding: 'utf16',
         replaceFileOnlyIfMatchRegxpInFile: null,
-        saveOldFile: false
+        saveOldFile: false,
+        step: 0,
       });
     });
     test('3', () => {
@@ -203,7 +205,8 @@ describe('lib/Configurator.js', () => {
         onlyFindPathsWithoutReplace: true,
         encoding: 'utf16',
         replaceFileOnlyIfMatchRegxpInFile: null,
-        saveOldFile: false
+        saveOldFile: false,
+        step: 0,
       });
     });
   });

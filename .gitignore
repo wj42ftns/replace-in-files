@@ -1,6 +1,7 @@
 coverage/
 examples/generatedAfter
 tmp*
+.gitconfig
 
 # Logs
 logs

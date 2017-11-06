@@ -79,8 +79,10 @@ const replaceInFiles = require('replace-in-files');
 
 replaceInFiles(options)
   .then({ changedFiles, countOfMatchesByPaths } => {
-    console.log('Modified files:', changedFiles);
+    console.log('Modified files:', changedFiles);,
+    replaceInFilesOptions
     console.log('Count of matches by paths:', countOfMatchesByPaths);
+    console.log('was called with:', replaceInFilesOptions);
   })
   .catch(error => {
     console.error('Error occurred:', error);
@@ -98,10 +100,12 @@ const co = require('co');
 co(function* () {
   const {
     changedFiles,
-    countOfMatchesByPaths
+    countOfMatchesByPaths,
+    replaceInFilesOptions
   } = yield replaceInFiles(options);
   console.log('Modified files:', changedFiles);
   console.log('Count of matches by paths:', countOfMatchesByPaths);
+  console.log('was called with:', replaceInFilesOptions);
 }).catch((error) => {
   console.log('Error occurred:', error);
 });
@@ -118,10 +122,44 @@ async function main() {
   try {
     const {
       changedFiles,
-      countOfMatchesByPaths
+      countOfMatchesByPaths,
+      replaceInFilesOptions
     } = await replaceInFiles(options);
     console.log('Modified files:', changedFiles);
     console.log('Count of matches by paths:', countOfMatchesByPaths);
+    console.log('was called with:', replaceInFilesOptions);
+  } catch (error) {
+    console.log('Error occurred:', error);
+  }
+}
+
+main();
+```
+
+## Sequentially replacement
+
+use .pipe  - will be replaced only files found at first replacement
+
+.pipe supported only: { from, to } (other options will received from options on first replacement)
+
+```js
+const replaceInFiles = require('replace-in-files');
+
+// ...
+
+async function main() {
+  try {
+    const {
+      changedFiles,
+      countOfMatchesByPaths,
+      replaceInFilesOptions
+    } = await replaceInFiles(options)
+      .pipe({ from: 'foo', to: 'bar' })
+      .pipe({ from: 'first', to: 'second' })
+      .pipe({ from: /const/g, to: () => 'var' });
+    console.log('Modified files:', changedFiles);
+    console.log('Count of matches by paths:', countOfMatchesByPaths);
+    console.log('was called with:', replaceInFilesOptions);
   } catch (error) {
     console.log('Error occurred:', error);
   }
@@ -159,6 +197,13 @@ const data = replaceInFiles({
     'path/to/files/file1.html',
     'path/to/files/file3.html',
     'path/to/files/file5.html',
+  ],
+  replaceInFilesOptions: [
+    {
+      files: 'path/to/files/*.html',
+      from: 'a',
+      to: 'b',
+    }
   ]
 }
 
@@ -168,6 +213,44 @@ const data = replaceInFiles({
     {}
   ],
   paths: []
+}
+
+// if used 2 .pipe
+{
+  countOfMatchesByPaths: [
+    {
+      'path/to/files/file1.html': 5,
+      'path/to/files/file3.html': 1,
+      'path/to/files/file5.html': 3
+    },
+    {
+      'path/to/files/file5.html': 4
+    },
+    {
+      'path/to/files/file1.html': 2,
+      'path/to/files/file5.html': 4
+    }
+  ],
+  paths: [
+    'path/to/files/file1.html',
+    'path/to/files/file3.html',
+    'path/to/files/file5.html',
+  ],
+  replaceInFilesOptions: [
+    {
+      files: 'path/to/files/*.html',
+      from: 'a',
+      to: 'b',
+    },
+    {
+      from: 'c',
+      to: 'd',
+    },
+    {
+      from: 'e',
+      to: 'f',
+    }
+  ]
 }
 
 ```
