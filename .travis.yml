@@ -5,8 +5,6 @@ node_js:
   - "7"
   - "6"
   - "6.0.0"
-install:
-  - yarn install
 script: "yarn eslint && yarn test && yarn coveralls"
 deploy:
   provider: npm
