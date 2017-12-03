@@ -75,27 +75,57 @@ describe('lib/Logger.js', () => {
     expect(helpers.eventEmitter.removeListener)
       .toHaveBeenCalledWith(FIND_MATCHES, mocThis.setCount);
   });
-  test('get paths', () => {
-    const Logger = require('../../lib/Logger.js');
+  describe('getPaths', () => {
+    test('1', () => {
+      const Logger = require('../../lib/Logger.js');
 
-    const logger = new Logger({});
-    const mocThis = {
-      countOfMatchesByPaths: [
-        {
-          path1: 3,
-          path2: 1,
-          path3: 1,
-        }
-      ]
-    };
+      const logger = new Logger({});
+      const mocThis = {
+        countOfMatchesByPaths: [
+          {
+            path1: 3,
+            path2: 1,
+            path3: 1,
+          }
+        ]
+      };
 
-    const result = logger.getPaths.call(mocThis);
+      const result = logger.getPaths.call(mocThis);
 
-    expect(result).toEqual([
-      'path1',
-      'path2',
-      'path3',
-    ]);
+      expect(result).toEqual([
+        'path1',
+        'path2',
+        'path3',
+      ]);
+    });
+    test('2', () => {
+      const Logger = require('../../lib/Logger.js');
+
+      const logger = new Logger({});
+      const mocThis = {
+        countOfMatchesByPaths: [
+          {
+            path1: 3
+          },
+          {
+            path1: 3,
+            path2: 1
+          },
+          {
+            path3: 1,
+          },
+
+        ]
+      };
+
+      const result = logger.getPaths.call(mocThis);
+
+      expect(result).toEqual([
+        'path1',
+        'path2',
+        'path3',
+      ]);
+    });
   });
   test('getCountOfMatchesByPaths', () => {
     const Logger = require('../../lib/Logger.js');
