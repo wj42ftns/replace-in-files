@@ -286,7 +286,7 @@ describe('outer work replace-in-files', () => {
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testSequentially.js'));
     });
-    genTest.only('sequentially replaces if not replaces in first iteration', function* () {
+    genTest('sequentially replaces if not replaces in first iteration', function* () {
       const replaceInFiles = require('../index.js');
       const files = [
         resolve('examples/generatedAfter/testCreatePathsInSequentially.js')
