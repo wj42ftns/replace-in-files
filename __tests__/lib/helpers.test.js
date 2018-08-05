@@ -15,7 +15,7 @@ describe('lib/helpers.js', () => {
     } = require('fs');
 
     jest.mock('es6-promisify');
-    const promisify = require('es6-promisify');
+    const { promisify } = require('es6-promisify');
 
     expect(Object.keys(helpers.fs)).toEqual([
       'readFile',
