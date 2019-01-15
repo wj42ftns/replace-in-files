@@ -78,9 +78,8 @@ const replaceInFiles = require('replace-in-files');
 // ...
 
 replaceInFiles(options)
-  .then({ changedFiles, countOfMatchesByPaths } => {
-    console.log('Modified files:', changedFiles);,
-    replaceInFilesOptions
+  .then((changedFiles, countOfMatchesByPaths) => {
+    console.log('Modified files:', changedFiles);
     console.log('Count of matches by paths:', countOfMatchesByPaths);
     console.log('was called with:', replaceInFilesOptions);
   })
