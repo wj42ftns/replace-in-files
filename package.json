@@ -35,10 +35,9 @@
     "fs"
   ],
   "scripts": {
-    "start": "node --inspect ./src/index.js",
     "watch": "./node_modules/jest/bin/jest.js --watch --no-cache",
     "test": "./node_modules/jest/bin/jest.js",
-    "test-debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i --env jest-environment-node-debug",
+    "test-debug": "node --inspect-brk ./node_modules/jest/bin/jest -i --env jest-environment-node-debug",
     "coveralls": "npm run test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "eslint": "rm -rf ./coverage && node ./node_modules/eslint/bin/eslint.js --quiet \"**/*.js\"",
     "precommit": "npm run message && rm -rf ./coverage && npm run lint-staged && npm run test",
