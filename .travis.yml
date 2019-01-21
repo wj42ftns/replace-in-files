@@ -13,7 +13,7 @@ node_js:
   - "node"
 install:
     - yarn --ignore-engines
-script: "npm run eslint && npm run test && npm run coveralls"
+script: "npm run eslint && npm run coveralls"
 deploy:
   provider: npm
   email: wj42ftns@gmail.com
