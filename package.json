@@ -92,7 +92,7 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/.history/"      
+      "<rootDir>/.history/"
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/setupJest.js"
   }
