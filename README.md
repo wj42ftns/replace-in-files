@@ -78,7 +78,7 @@ const replaceInFiles = require('replace-in-files');
 // ...
 
 replaceInFiles(options)
-  .then((changedFiles, countOfMatchesByPaths) => {
+  .then(({ changedFiles, countOfMatchesByPaths }) => {
     console.log('Modified files:', changedFiles);
     console.log('Count of matches by paths:', countOfMatchesByPaths);
     console.log('was called with:', replaceInFilesOptions);
@@ -137,9 +137,9 @@ main();
 
 ## Sequentially replacement
 
-use .pipe  - will be replaced only files found at first replacement
+use .pipe  - will be replaced with only files found at first replacement
 
-.pipe supported only: { from, to } (other options will received from options on first replacement)
+.pipe supported only: { from, to } (the other options will be received from options in the first replacement)
 
 ```js
 const replaceInFiles = require('replace-in-files');

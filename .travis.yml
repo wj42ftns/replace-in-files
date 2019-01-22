@@ -1,10 +1,20 @@
 language: node_js
+os:
+  - linux
+  - osx
 node_js:
+  - "11"
   - "10"
   - "9"
   - "8"
+  - "7"
   - "6"
-script: "npm run eslint && npm run test && npm run coveralls"
+  - "6.0.0"
+  - "lts/*"
+  - "node"
+install:
+    - yarn --ignore-engines
+script: "npm run eslint && npm run coveralls"
 deploy:
   provider: npm
   email: wj42ftns@gmail.com
