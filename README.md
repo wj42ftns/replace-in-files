@@ -59,6 +59,7 @@ const options = {
   encoding: 'utf8',  // default
 
 
+  shouldSkipBinaryFiles: true, // default
   onlyFindPathsWithoutReplace: false // default
   returnPaths: true // default
   returnCountOfMatchesByPaths: true // default
@@ -255,7 +256,8 @@ const data = replaceInFiles({
 ```
 
 ## Version information
-Replace in files requires Node 6 or higher.
+Replace in files requires Node 8 or higher. (v.2.0.0 +)
+Replace in files requires Node 6 or higher. (v.1.1.4)
 
 ## License
 (MIT License)

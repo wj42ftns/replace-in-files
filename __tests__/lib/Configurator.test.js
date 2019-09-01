@@ -147,6 +147,7 @@ describe('lib/Configurator.js', () => {
         from: 'from',
         to: 'to',
         encoding: 'utf32',
+        shouldSkipBinaryFiles: false,
         replaceFileOnlyIfMatchRegxpInFile: /foo/,
         saveOldFile: true,
       };
@@ -158,6 +159,7 @@ describe('lib/Configurator.js', () => {
         to: 'to',
         onlyFindPathsWithoutReplace: false,
         encoding: 'utf32',
+        shouldSkipBinaryFiles: false,
         replaceFileOnlyIfMatchRegxpInFile: /foo/,
         saveOldFile: true,
         step: 0,
@@ -172,6 +174,7 @@ describe('lib/Configurator.js', () => {
         files: 'pathToFiles',
         from: 'from',
         to: 'to',
+        shouldSkipBinaryFiles: true,
         replaceFileOnlyIfMatchRegxpInFile: null,
         saveOldFile: false
       };
@@ -183,6 +186,7 @@ describe('lib/Configurator.js', () => {
         onlyFindPathsWithoutReplace: false,
         to: 'to',
         encoding: 'utf16',
+        shouldSkipBinaryFiles: true,
         replaceFileOnlyIfMatchRegxpInFile: null,
         saveOldFile: false,
         step: 0,
@@ -204,6 +208,7 @@ describe('lib/Configurator.js', () => {
         from: 'from',
         onlyFindPathsWithoutReplace: true,
         encoding: 'utf16',
+        shouldSkipBinaryFiles: true,
         replaceFileOnlyIfMatchRegxpInFile: null,
         saveOldFile: false,
         step: 0,

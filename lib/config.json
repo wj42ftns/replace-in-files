@@ -42,6 +42,7 @@
   "Configurator": {
     "defaultEncoding": "utf8",
     "defaultReturnCountOfMatchesByPaths": true,
+    "shouldSkipBinaryFiles": true,
     "defaultReturnPaths": true,
     "defaultReplaceInFilesOptions": true,
     "defaultSaveOldFile": false,
