@@ -1,3 +1,4 @@
+.editorconfig
 coverage/
 examples/generatedAfter
 tmp*
