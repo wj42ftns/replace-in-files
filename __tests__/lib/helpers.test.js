@@ -34,7 +34,7 @@ describe('lib/helpers.js', () => {
       const resolveMsg = 'resolveMsg';
       const options = 'options';
 
-      const pFunc = opt => new Promise((resolve) => {
+      const pFunc = (opt) => new Promise((resolve) => {
         expect(opt).toBe(options);
         setTimeout(() => resolve(resolveMsg));
       });
@@ -49,7 +49,7 @@ describe('lib/helpers.js', () => {
       const rejectMsg = 'rejectMsg';
       const options = 'options';
 
-      const pFunc = opt => new Promise((resolve, reject) => {
+      const pFunc = (opt) => new Promise((resolve, reject) => {
         expect(opt).toBe(options);
         setTimeout(() => reject(rejectMsg));
       });
@@ -66,7 +66,7 @@ describe('lib/helpers.js', () => {
       const rejectMsg = 'rejectMsg';
       const options = 'options';
 
-      const pFunc = opt => new Promise((resolve, reject) => {
+      const pFunc = (opt) => new Promise((resolve, reject) => {
         expect(opt).toBe(options);
         setTimeout(() => reject(rejectMsg));
       });
@@ -80,7 +80,7 @@ describe('lib/helpers.js', () => {
       const helpers = require('../../lib/helpers.js');
       const resolveMsg = 'resolveMsg';
       const options = 'options';
-      const pFunc = opt => new Promise((resolve) => {
+      const pFunc = (opt) => new Promise((resolve) => {
         expect(opt).toBe(options);
         setTimeout(() => resolve(resolveMsg));
       });
@@ -93,7 +93,7 @@ describe('lib/helpers.js', () => {
       const helpers = require('../../lib/helpers.js');
       const rejectMsg = 'rejectMsg';
       const options = 'options';
-      const pFunc = opt => new Promise((resolve, reject) => {
+      const pFunc = (opt) => new Promise((resolve, reject) => {
         expect(opt).toBe(options);
         setTimeout(() => reject(rejectMsg));
       });
