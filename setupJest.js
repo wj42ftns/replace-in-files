@@ -4,10 +4,10 @@ const co = require('co');
 
 // console.warn = () => null;
 
-global.pFn = result => jest.fn(() => Promise.resolve(result));
-global.epFn = msg => jest.fn(() => Promise.reject(new Error(msg)));
-global.fn = result => jest.fn(() => result);
-global.efn = msg => jest.fn(() => {
+global.pFn = (result) => jest.fn(() => Promise.resolve(result));
+global.epFn = (msg) => jest.fn(() => Promise.reject(new Error(msg)));
+global.fn = (result) => jest.fn(() => result);
+global.efn = (msg) => jest.fn(() => {
   throw new Error(msg);
 });
 
