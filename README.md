@@ -256,7 +256,7 @@ const data = replaceInFiles({
 ```
 
 ## Version information
-Replace in files requires Node 8 or higher. (v.2.0.0 +)
+Replace in files requires Node 8 or higher. (v.2.0.0 +) - potentially still supported node 6, but in pipeline eslint required node 8
 Replace in files requires Node 6 or higher. (v.1.1.4)
 
 ## License

@@ -14,3 +14,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * eslint fixes
 ## v2.0.2
 * added some files in .npmignore and .gitignore
+## v2.0.3
+* supported Node 8 or higher (potentially still supported node 6, but in pipeline eslint required node 8)
