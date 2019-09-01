@@ -3,6 +3,8 @@ coverage/
 examples/generatedAfter
 tmp*
 .gitconfig
+.vscode
+.history
 
 # Logs
 logs
