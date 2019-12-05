@@ -82,7 +82,7 @@ replaceInFiles(options)
   .then(({ changedFiles, countOfMatchesByPaths }) => {
     console.log('Modified files:', changedFiles);
     console.log('Count of matches by paths:', countOfMatchesByPaths);
-    console.log('was called with:', replaceInFilesOptions);
+    console.log('was called with:', options);
   })
   .catch(error => {
     console.error('Error occurred:', error);
