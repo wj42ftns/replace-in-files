@@ -8,7 +8,7 @@ const testFile2 = resolve('examples/before/testFile2.js');
 
 describe('outer work replace-in-files', () => {
   describe('testFile1', () => {
-    genTest('"from" - Regexp and to" - Function', function* () {
+    genTest('"from" - Regexp and "to" - Function', function* () {
       const replaceInFiles = require('../index.js');
       const files = resolve('examples/generatedAfter/testOptions.js');
       yield fs.copy(testFile1, files);
@@ -35,7 +35,7 @@ describe('outer work replace-in-files', () => {
       expect(result.paths.length).toBe(1);
       expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testOptions.js'));
     });
-    genTest('"from" - Regexp and to" - Function with inserts', function* () {
+    genTest('"from" - Regexp and "to" - Function with inserts', function* () {
       const replaceInFiles = require('../index.js');
       const files = resolve('examples/generatedAfter/testReplaceFunctionWithInserts.js');
       yield fs.copy(testFile1, files);
@@ -44,6 +44,31 @@ describe('outer work replace-in-files', () => {
       function to(match, p1, p2, p3) {
         return `${p1}${p2} foo: 'bar' ${p3};`;
       }
+
+      const options = {
+        files,
+        from,
+        to,
+      };
+      const result = yield replaceInFiles(options);
+
+      const fsResult = yield fs.readFile(files, 'utf8');
+      const expectedResult = yield fs.readFile(resolve('examples/after/testReplaceFunctionWithInserts.js'), 'utf8');
+      expect(fsResult).toBe(expectedResult);
+      expect(result).toBeObj();
+      expect(Object.keys(result).length).toBe(3);
+      expect(result.countOfMatchesByPaths[0][resolve('examples/generatedAfter/testReplaceFunctionWithInserts.js')]).toBe(1);
+      expect(result.replaceInFilesOptions).toEqual([options]);
+      expect(result.paths.length).toBe(1);
+      expect(result.paths[0]).toBe(resolve('examples/generatedAfter/testReplaceFunctionWithInserts.js'));
+    });
+    genTest('"from" - Regexp and "to" - String with inserts', function* () {
+      const replaceInFiles = require('../index.js');
+      const files = resolve('examples/generatedAfter/testReplaceFunctionWithInserts.js');
+      yield fs.copy(testFile1, files);
+
+      const from = /(const log = )({)(});/g;
+      const to = "$1$2 foo: 'bar' $3;";
 
       const options = {
         files,
