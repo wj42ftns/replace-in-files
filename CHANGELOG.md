@@ -17,4 +17,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## v2.0.3
 * supported Node 8 or higher (potentially still supported node 6, but in pipeline eslint required node 8)
 ## v3.0.0
-* updated dependencies with breaking changes of node 8 and node 9
+* updated dependencies with breaking changes of node <12, it maybe will work but testing is broken ( error eslint@7.9.0: The engine "node" is incompatible with this module. Expected version "^10.12.0 || >=12.0.0"
