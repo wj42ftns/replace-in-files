@@ -30,7 +30,6 @@ describe('lib/Logger.js', () => {
     expect(logger.countOfMatchesByPaths).toEqual([]);
     expect(logger.replaceInFilesOptions).toEqual([]);
 
-
     expect(logger.addReplaceInFilesOptions).toBe(addReplaceInFilesOptions);
     expect(logger.setCount).toBe(setCount);
     expect(logger.incrementCountByPath).toBe(incrementCountByPath);

@@ -10,7 +10,6 @@ describe('lib/index.js', () => {
     const options = 'options';
     const result = wrapper(options);
 
-
     expect(helpers.co).toHaveBeenCalledTimes(1);
     expect(helpers.co).toHaveBeenCalledWith(wrapper.init, options);
 

@@ -45,7 +45,6 @@ describe('lib/ReplaceInFiles.js', () => {
     expect(logger.getResult).toHaveBeenCalledTimes(1);
     expect(logger.getResult).toHaveBeenCalledWith();
 
-
     expect(ReplaceInFiles.getPathsToFiles).toHaveBeenCalledTimes(1);
     expect(ReplaceInFiles.getPathsToFiles).toHaveBeenCalledWith(replaceInFiles.findFilesOptions);
 
@@ -174,7 +173,6 @@ describe('lib/ReplaceInFiles.js', () => {
 
     expect(globby).toHaveBeenCalledTimes(1);
     expect(globby).toHaveBeenCalledWith(files, optionsForFiles);
-
 
     expect(result).toBe(paths);
   });
@@ -484,7 +482,6 @@ describe('lib/ReplaceInFiles.js', () => {
     const Finder = require('../../lib/Finder')
       .mockImplementation(() => moc);
 
-
     ReplaceInFiles.findMatches(settings);
 
     expect(Finder).toHaveBeenCalledTimes(1);
@@ -522,7 +519,6 @@ describe('lib/ReplaceInFiles.js', () => {
         .mockImplementation(() => moc);
       const helpers = require('../../lib/helpers');
       helpers.fs.writeFile = pFn();
-
 
       yield ReplaceInFiles.replaceMatches(settings);
 
@@ -572,7 +568,6 @@ describe('lib/ReplaceInFiles.js', () => {
         .mockImplementation(() => moc);
       const helpers = require('../../lib/helpers');
       helpers.fs.writeFile = pFn();
-
 
       yield ReplaceInFiles.replaceMatches(settings);
 
