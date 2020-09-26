@@ -3,11 +3,11 @@
 This project adheres to [Semantic Versioning](http://semver.org/).  
 
 ## v1.1.2
-* update dependencies.
+* updated dependencies.
 ## v1.1.3
-* update dependencies.
+* updated dependencies.
 ## v1.1.4
-* update dependencies.
+* updated dependencies.
 ## v2.0.0
 * Changed logic, by default don't search binary files, see more there: [Corrupted image](https://github.com/wj42ftns/replace-in-files/issues/22).
 ## v2.0.1
@@ -16,5 +16,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * added some files in .npmignore and .gitignore
 ## v2.0.3
 * supported Node 8 or higher (potentially still supported node 6, but in pipeline eslint required node 8)
-## v2.0.4
-* update dependencies.
+## v3.0.0
+* updated dependencies with breaking changes of node 8 and node 9
